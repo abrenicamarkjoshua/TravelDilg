@@ -20,7 +20,9 @@ use App\links;
 use App\department;
 use App\accountaccessiblelinks;
 use App\attachedDocuments;
+
 class HomeController extends Controller{
+	//abrenicamarkjoshua@gmail.com
 	protected $links;
 	protected $countries;
 	protected $regions;
@@ -39,10 +41,10 @@ class HomeController extends Controller{
 		date_default_timezone_set("Asia/Manila");
 		$accessibles = accountaccessiblelinks::where("department_id", Auth::user()->department_id )->get(); 
 		$collection = array();
-		foreach($accessibles as $accessible){
-			array_push($collection, $accessible->link_id);
+		// foreach($accessibles as $accessible){
+		// 	array_push($collection, $accessible->link_id);
 
-		}
+		// }
 		$this->countries = countries::all();
 		if(Auth::user()->province){
 			$this->region = Auth::user()->region;
