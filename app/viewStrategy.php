@@ -263,7 +263,7 @@ class viewStrategy{
 	}
 	public static function getAllProvincesOptions(){
 		$provinces = provinces::all();
-		$output = "<option value = ''>Any province/district</option>";
+		$output = "<option value = ''>Any province/City</option>";
 		foreach($provinces as $province){
 			$selected = "";
 			if(isset($_POST['province'])){
@@ -323,7 +323,7 @@ class viewStrategy{
 		$provinces= refprovince::where('regCode', $regCode)->get();
 		$output = "<option value = ''>choose province</option>";
 		if($region == "NATIONAL CAPITAL REGION (NCR)"){
-		$output = "<option value = ''>choose district</option>";
+		$output = "<option value = ''>choose city</option>";
 	
 		}
 		foreach($provinces as $province){

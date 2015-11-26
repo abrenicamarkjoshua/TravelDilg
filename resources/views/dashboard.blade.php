@@ -6,8 +6,8 @@
            <h4>Logged in as: <?php echo Auth::user()->lastname . ", " . Auth::user()->firstname;?></br>
            <?php 
             echo (Auth::user()->region) ? ("Region: " . Auth::user()->region . "<br/>") : "";
-            $provinceOrDistrict = (Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)") ? "District: " : "Province ";
-            echo (Auth::user()->province) ? ($provinceOrDistrict . Auth::user()->province."<br>") : "" ;
+            $provinceOrCity = (Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)") ? "City: " : "Province: ";
+            echo (Auth::user()->province) ? ($provinceOrCity . Auth::user()->province."<br>") : "" ;
             echo (Auth::user()->municipality) ? ("Municipality: ".Auth::user()->municipality."<br>") : "" ;
            
             ?><br>
@@ -95,9 +95,9 @@ date_default_timezone_set("Asia/Manila");
                       @if($department != "DILG RO")
                       <th style = "width:197px">REGION</th>
                       @endif
-                      <th style = "width:197px">{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "DISTRICT" : "PROVINCE/DISTRICT"}}</th>
+                      <th style = "width:197px">{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "CITY" : "PROVINCE/DISTRICT"}}</th>
                     @endif
-                      <th  style = "width:197px" >CITY/MUNICIPALITY</th>
+                      <th  style = "width:197px" >{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "MUNICIPALITY" : "CITY/MUNICIPALITY"}}</th>
                       <th  style = "width:197px" >FIRSTNAME</th>
                       <th  style = "width:197px" >LASTNAME</th>
                       <th  style = "width:197px" >TYPE OF POSITION</th>

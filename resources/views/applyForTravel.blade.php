@@ -33,7 +33,7 @@
                                         <?php echo $region;?>
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
-                                      <label for="province" class= "mylabel">{{($region == "NATIONAL CAPITAL REGION (NCR)") ? "District" : "Province"}}:</label>
+                                      <label for="province" class= "mylabel">{{($region == "NATIONAL CAPITAL REGION (NCR)") ? "City" : "Province"}}:</label>
                                       <?php
                                        if(Auth::user()->province){
                                          
@@ -250,7 +250,7 @@
                                 <div class="form-bottom">
                                 <div class="form-group pure-u-1 pure-u-md-1-3" id = "uploaddocuments">
 
-                                    <label class = "mylabel" >Updated picture (PLEASE UPLOAD 2x2 ONLY):</label>
+                                    <label class = "mylabel" style = "color:red;">Updated picture (PLEASE UPLOAD 2x2 ONLY):</label>
                                     <input  name = "updatedPicture" type="file" required accept="image/gif, image/jpeg">
                                     <br><br><br>
                                     <h3>pls. for Administrative requirements uploading</h3>
