@@ -102,14 +102,14 @@ class viewStrategy{
 					return $form;
 					break;
 			}
-			$form .= "<form action = '$action/$application->id' method = 'post'>";
+			$form .= "<form style = 'float:left;' action = '$action/$application->id' method = 'post'>";
 			$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
 			$form .= "<input type='hidden' name='_token' value='" . csrf_token() ."' />";
 			$form .= "<input type = 'hidden' name = 'travelApplication_id' value = '$application->id' />";
           
 			$form .= "</form>";
 			if($application->applicationstatus != "APPROVED"){
-				$form .= "<textarea style = 'padding:0px;margin:0px;'>".$application->remarks."</textarea>";
+				$form .= "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px; float: left; width: 257px; height: 54px;'>".$application->remarks."</textarea>";
 			}
 		}
 

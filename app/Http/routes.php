@@ -10,6 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('saveRemarks/', [
+    'middleware' => 'auth',
+    'uses' => 'HomeController@getSaveRemarks'
+]);
 Route::get('getMunicipalitiesByProvince/', [
     'middleware' => 'auth',
     'uses' => 'HomeController@getMunicipalitiesByProvince'

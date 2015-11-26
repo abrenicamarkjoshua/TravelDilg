@@ -149,7 +149,28 @@ date_default_timezone_set("Asia/Manila");
 
                       </form>
                     </td>
-                   
+                  <script>
+function saveRemarks{!! $travelApplications[$i]->id !!}(){
+    
+        var token = document.getElementsByName('_token').value;
+        $.ajax({
+          type: 'GET',
+          headers: {'X-CSRF-TOKEN': token},
+          url: '../saveRemarks',
+          data: { 'remarks' : $("textarea#remarks{!! $travelApplications[$i]->id !!}").val(), 'applicationId' : {!! $travelApplications[$i]->id !!} },
+          dataType: 'json',
+          success: function(travel) {
+              
+              $("textarea#remarks{!! $travelApplications[$i]->id !!}").html(travel.remarks);
+          },
+          error: function(j) {
+            alert('Error loading: ');
+          }
+        });
+
+    
+}
+                  </script> 
                   </tr>
                   
                   

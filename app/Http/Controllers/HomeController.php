@@ -1419,6 +1419,13 @@ class HomeController extends Controller{
 
 		return redirect('home');
 	}
+	public function getSaveRemarks(Request $request){
+		$id = $request->input('applicationId');
+		$travel = travelApplication::find($id);
+		$travel->remarks = $request->input('remarks');
+		$travel->save();
+		 return response()->json( $travel );
+	}
 	public function getMunicipalitiesByProvince(Request $request){
 
 			$province = $request->input('province');
