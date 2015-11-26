@@ -220,7 +220,7 @@ class HomeController extends Controller{
 		}
 		
 
-		return redirect("view/$travelApplication->id");
+		return back();
 	}
 	public function postSendToUsec($id){
 		

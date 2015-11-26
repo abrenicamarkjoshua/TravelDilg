@@ -25,7 +25,7 @@ date_default_timezone_set("Asia/Manila");
           <div style = "margin-top:30px">
           </div>
            <div style="width: 100%; max-height:400px;  overflow: auto;background-color:white; margin-bottom:10px;">
-            <table class = "pure-table">
+            <table class = "pure-table"  style="table-layout:fixed;">
                 
                 <tr>
                   <form action = '' method = 'post'>
@@ -83,7 +83,7 @@ date_default_timezone_set("Asia/Manila");
                 </tr>
             </table>
            </div>
-          <div class = "scrolly" style="width: 100%; max-height:400px;  overflow: auto;">
+          <div>
           <table class="pure-table">
 
                   <thead>
@@ -139,7 +139,7 @@ date_default_timezone_set("Asia/Manila");
                     <td>{{$travelApplications[$i]->created_at}}</td>
 
                     <td>{{$travelApplications[$i]->dateapproved}}</td>
-                    <td>
+                    <td style="white-space:nowrap">
                       <?php
                       echo App\viewStrategy::TravelListAction($department, $travelApplications[$i]);
                       ?>

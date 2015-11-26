@@ -89,9 +89,9 @@ class viewStrategy{
 				case "USEC":
 					if($application->applicationstatus == "ON PROCESS USEC" || $application->applicationstatus == "ON PROCESS OSEC"){
 						//show drop button
-							$action = 'view';
-							$btnName = 'btnview';
-							$btnValue = 'view';
+							$action = 'approve';
+							$btnName = 'btnApprove';
+							$btnValue = 'approve';
 							
 					} else{
 						return "";
@@ -108,6 +108,9 @@ class viewStrategy{
 			$form .= "<input type = 'hidden' name = 'travelApplication_id' value = '$application->id' />";
           
 			$form .= "</form>";
+			if($application->applicationstatus != "APPROVED"){
+				$form .= "<textarea style = 'padding:0px;margin:0px;'>".$application->remarks."</textarea>";
+			}
 		}
 
 		return $form;
