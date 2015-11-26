@@ -24,10 +24,10 @@ date_default_timezone_set("Asia/Manila");
           </div>
           <div style = "margin-top:30px">
           </div>
-           <div style="width: 100%; max-height:400px;  overflow: auto;background-color:white; margin-bottom:10px;">
+           <div style="width: 100%;background-color:white; margin-bottom:10px;">
             <table class = "pure-table"  style="table-layout:fixed;">
                 
-                <tr>
+                <tr style = "background-color:white;">
                   <form action = '' method = 'post'>
                     {!! csrf_field() !!}
                    
@@ -149,6 +149,7 @@ date_default_timezone_set("Asia/Manila");
 
                       </form>
                     </td>
+                    @if($travelApplications[$i]->applicationstatus != "APPROVED")
                   <script>
 function saveRemarks{!! $travelApplications[$i]->id !!}(){
     
@@ -171,6 +172,7 @@ function saveRemarks{!! $travelApplications[$i]->id !!}(){
     
 }
                   </script> 
+                  @endif
                   </tr>
                   
                   
