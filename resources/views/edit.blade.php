@@ -13,9 +13,7 @@
                         <div class="col-lg-10 col-lg-offset-1 form-box">
                            <div>
             
-                            <a href = '<?php echo $nextForm;?>' name = 'previous' value = 'previous'>previous record</a>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                            <a href = '<?php echo $previousForm;?>' name = 'next' value = 'next'>next record</a>
-           
+                           
                           </div>
                           <form role="form" class="registration-form" enctype="multipart/form-data" name = 'applicationform' class="pure-form pure-form-aligned" method="POST" action="">
                             
@@ -361,54 +359,7 @@
                                 <button type="button" class="btn btn-next">Next</button>
                             </div>
                           </fieldset>
-                          <fieldset>
-
-                            <div class="form-top">
-                              <div class="form-top-left">
-                                <h3>Save</h3>
-                                  <p>{{$department}}</p>
-                                  <p style = "color:orange;">{{ ($department == 'BLGS') ? "Please edit 'Copy furnished'":""}}</p>
-                              </div>
-                              <div class="form-top-right">
-                                <i class="fa fa-user"></i>
-                              </div>
-                            </div>
-                            <div class="form-bottom">
-                              
-                              <div class="pure-control-group">
-                                  <label class = "mylabel" for="name">Status:</label>
-                                  <input type = 'hidden' name = 'status' value = '{{$applicationForm->applicationstatus}}'/>{{$applicationForm->applicationstatus}}
-                              </div>  
-                              <div class="pure-control-group">
-                                  <label class = "mylabel" for="name">Remarks:</label>
-                                  <textarea style = "width:500px" name = 'remarks' value = '<?php echo $applicationForm->remarks;?>'><?php echo $applicationForm->remarks;?></textarea>
-                              </div>  
-                              <div class = "pure-control-group">
-                                <label class = "mylabel" for="name">copy furnished:</label>
-                                <textarea style = "width:500px;height: 300px;margin-top:10px" name = 'copyFurnished' value = '<?php echo $applicationForm->copyFurnished;?>'>
-                                <?php
-                                $defaultCopyFurnishedTemplate = 
-"(Please edit. Sample only)
-Regional Director Ma. Lourdes L. Agustin, CESCO IV
-Officer-In-Charge
-DILG $applicationForm->region
-$applicationForm->municipality";
-                                echo (strlen(trim($applicationForm->copyFurnished)) > 0) ? $applicationForm->copyFurnished :$defaultCopyFurnishedTemplate;
-                                ?>
-                                </textarea>
-                              </div>  
-                            
-                              <div class="pure-controls" style = "margin-top:10px;">
-                                <legend></legend>
-                                 <button type="submit" name = 'save' class="pure-button pure-button-primary">Save changes and Remarks</button>
-                                  <a href = "{{$applicationForm->id}}">Cancel changes</a>
-                                <div class="pure-control-group" style = "margin-top:10px">
-                                  <button type="button" class="btn btn-previous">Previous</button>
-                                  <button type="button" class="btn btn-next">Next</button>
-                                </div>  
-                              </div>
-                            </div>
-                          </fieldset>
+                          
                           <fieldset>
                                {!! csrf_field() !!}
                               <div class="form-top">

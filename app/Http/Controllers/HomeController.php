@@ -533,21 +533,6 @@ class HomeController extends Controller{
 	}
 	public function postEdit(Request $request){
 		$id = $request->id;
-		if(isset($_POST['approve'])){
-			return $this->postApproveTravel($id);
-			
-		}
-		if(isset($_POST['btnSendToUsec'])){
-			return $this->postSendToUsec($id);
-		}
-		if(isset($_POST['btnSendToOsec'])){
-
-			return $this->postSendToOsec($id);
-		}
-		if(isset($_POST['btnInitialToUsec'])){
-			return $this->postInitialToUsec($id);
-
-		}
 		
 		$applicationForm = travelApplication::find($id);
 		$statusMatch = [];
@@ -688,44 +673,125 @@ class HomeController extends Controller{
 		
 		$updatedpicture_id = (attachedDocuments::where($matchpicture)->first()) ? attachedDocuments::where($matchpicture)->first()->id : "";
 		$this->data['updatedpicture_id'] = $updatedpicture_id;
-		if(isset($_POST['save'])){
-			$applicationForm->update($this->data['post']);
+		if(isset($_POST['approve'])){
+			//begin save
+				$applicationForm->update($this->data['post']);
+				
+				//upload updated pic
+		       if($request->hasFile('updatedPicture')){
+		       	//upload updated picture 
+		       	if(strlen($request->file('updatedPicture')->getClientOriginalName()) > 0){
+		       		$request->file('updatedPicture')->move('documents/', $request->file('updatedPicture')->getClientOriginalName());
+		       		
+	    		} else{
+	    			
+	    		}
+		       }
+		       //update and upload docs
+				if ($request->hasFile('documents')) {
+		    		//
+					for($i = 0; $i <= count($request->file('documents')) - 1; $i++){
+						if(strlen($request->file('documents')[$i]->getClientOriginalName()) > 0){
+							//upload revision. be sure that it is still the same name as the previous uploaded cuz we're not touching the database
+			       			$request->file('documents')[$i]->move('documents/', $request->file('documents')[$i]->getClientOriginalName());
+			      
+				    	}
+		       		}
+		       		
+		       }
+	       //end save
+			return $this->postApproveTravel($id);
 			
-			//upload updated pic
-	       if($request->hasFile('updatedPicture')){
-	       	//upload updated picture 
-	       	if(strlen($request->file('updatedPicture')->getClientOriginalName()) > 0){
-	       		$request->file('updatedPicture')->move('documents/', $request->file('updatedPicture')->getClientOriginalName());
-	       		
-    		} else{
-    			
-    		}
-	       }
-	       //update and upload docs
-			if ($request->hasFile('documents')) {
-	    		//
-				for($i = 0; $i <= count($request->file('documents')) - 1; $i++){
-					if(strlen($request->file('documents')[$i]->getClientOriginalName()) > 0){
-						//upload revision. be sure that it is still the same name as the previous uploaded cuz we're not touching the database
-		       			$request->file('documents')[$i]->move('documents/', $request->file('documents')[$i]->getClientOriginalName());
-		       // 			$matchDocument = [
-		       // 				'name' => $request->file('documents')[$i]->getClientOriginalName(),
-		       // 				'travelApplication_id' = $applicationForm->id
-		       // 			];
-		       // 			$attachedDocument = attachedDocuments::where($matchDocument)->get()->first();
-				    	
-				    	// $attachedDocument->name = $request->file('documents')[$i]->getClientOriginalName();
-				    	// $attachedDocument->location = 'documents/' . $request->file('documents')[$i]->getClientOriginalName();
-				    	// $attachedDocument->travelApplication_id = $this->travelApplication_id;
-				    	// $attachedDocument->created_at = date("Y-m-d");
-				    	// $attachedDocument->remarks = $request->documentremarks[$i];
-
-				    	// $attachedDocument->save();
-			    	}
-	       		}
-	       		
-	       }
 		}
+		if(isset($_POST['btnSendToUsec'])){
+			//begin save
+				$applicationForm->update($this->data['post']);
+				
+				//upload updated pic
+		       if($request->hasFile('updatedPicture')){
+		       	//upload updated picture 
+		       	if(strlen($request->file('updatedPicture')->getClientOriginalName()) > 0){
+		       		$request->file('updatedPicture')->move('documents/', $request->file('updatedPicture')->getClientOriginalName());
+		       		
+	    		} else{
+	    			
+	    		}
+		       }
+		       //update and upload docs
+				if ($request->hasFile('documents')) {
+		    		//
+					for($i = 0; $i <= count($request->file('documents')) - 1; $i++){
+						if(strlen($request->file('documents')[$i]->getClientOriginalName()) > 0){
+							//upload revision. be sure that it is still the same name as the previous uploaded cuz we're not touching the database
+			       			$request->file('documents')[$i]->move('documents/', $request->file('documents')[$i]->getClientOriginalName());
+			      
+				    	}
+		       		}
+		       		
+		       }
+	       //end save
+			return $this->postSendToUsec($id);
+		}
+		if(isset($_POST['btnSendToOsec'])){
+			//begin save
+				$applicationForm->update($this->data['post']);
+				
+				//upload updated pic
+		       if($request->hasFile('updatedPicture')){
+		       	//upload updated picture 
+		       	if(strlen($request->file('updatedPicture')->getClientOriginalName()) > 0){
+		       		$request->file('updatedPicture')->move('documents/', $request->file('updatedPicture')->getClientOriginalName());
+		       		
+	    		} else{
+	    			
+	    		}
+		       }
+		       //update and upload docs
+				if ($request->hasFile('documents')) {
+		    		//
+					for($i = 0; $i <= count($request->file('documents')) - 1; $i++){
+						if(strlen($request->file('documents')[$i]->getClientOriginalName()) > 0){
+							//upload revision. be sure that it is still the same name as the previous uploaded cuz we're not touching the database
+			       			$request->file('documents')[$i]->move('documents/', $request->file('documents')[$i]->getClientOriginalName());
+			      
+				    	}
+		       		}
+		       		
+		       }
+	       //end save
+			return $this->postSendToOsec($id);
+		}
+		if(isset($_POST['btnInitialToUsec'])){
+			//begin save
+				$applicationForm->update($this->data['post']);
+				
+				//upload updated pic
+		       if($request->hasFile('updatedPicture')){
+		       	//upload updated picture 
+		       	if(strlen($request->file('updatedPicture')->getClientOriginalName()) > 0){
+		       		$request->file('updatedPicture')->move('documents/', $request->file('updatedPicture')->getClientOriginalName());
+		       		
+	    		} else{
+	    			
+	    		}
+		       }
+		       //update and upload docs
+				if ($request->hasFile('documents')) {
+		    		//
+					for($i = 0; $i <= count($request->file('documents')) - 1; $i++){
+						if(strlen($request->file('documents')[$i]->getClientOriginalName()) > 0){
+							//upload revision. be sure that it is still the same name as the previous uploaded cuz we're not touching the database
+			       			$request->file('documents')[$i]->move('documents/', $request->file('documents')[$i]->getClientOriginalName());
+			      
+				    	}
+		       		}
+		       		
+		       }
+	       //end save
+			return $this->postInitialToUsec($id);
+
+		}
+		
 
 
 		$applicationEntitlements = $applicationForm->entitlements;
@@ -834,6 +900,7 @@ class HomeController extends Controller{
 				];
 				$this->data['updatedPicture'] = (attachedDocuments::where($match)->first()) ? attachedDocuments::where($match)->first()->location : "";
 				$this->data['documents'] = attachedDocuments::where('travelApplication_id', $applicationForm->id)->get();
+
 		return view('edit', $this->data);
 	
 	}
