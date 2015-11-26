@@ -251,10 +251,10 @@
                                 <div class="form-group pure-u-1 pure-u-md-1-3" id = "uploaddocuments">
 
                                     <label class = "mylabel" style = "color:red;">Updated picture (PLEASE UPLOAD 2x2 ONLY):</label>
-                                    <input  name = "updatedPicture" type="file" required accept="image/gif, image/jpeg">
+                                    <input id="uploadupdatedpicture" name = "updatedPicture" type="file" required accept="image/gif, image/jpeg">
                                     <br><br><br>
                                     <h3>pls. for Administrative requirements uploading</h3>
-                                    <input  name = "documents[]" type="file" accept="application/pdf"/>
+                                    <input  name = "documents[]" type="file" required accept="application/pdf"/>
                                     <label class = "mylabel" >document remarks/notes:</label>
                                     <input class = "pure-u-11-24" name = "documentremarks[]" type="text" placeholder = "type document notes/remarks"/>
                                     <br>

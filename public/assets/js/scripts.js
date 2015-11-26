@@ -46,7 +46,7 @@ jQuery(document).ready(function() {
         }
         var department = $('#userdepartment').val();
         
-        if(department == "LGU" || department == "DILG RO"){
+        if(department == "LGU" || department == "DILG RO" || department == "DILG PO"){
             
             if ($('#uploadpicture').get(0).files.length === 0) {
                 alert("Please upload picture.");
@@ -91,6 +91,7 @@ jQuery(document).ready(function() {
     
     // submit
     $('.registration-form').on('submit', function(e) {
+        
     	$(this).find('input[type="text"], input[type="email"],input[type="file"],input[type="date"], select').each(function() {
     		if( $(this).val() == "" ) {
                  if($(this).is("select")){
