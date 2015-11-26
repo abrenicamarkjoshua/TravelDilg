@@ -2,7 +2,7 @@
 
 
 namespace App;
-
+use Auth;
 use Illuminate\Database\Eloquent\Model;
 class viewStrategy{
 	public static function getApproveActions($department_id, $applicationForm, $mode = "view"){
@@ -263,7 +263,7 @@ class viewStrategy{
 	}
 	public static function getAllProvincesOptions(){
 		$provinces = provinces::all();
-		$output = "<option value = ''>Any province</option>";
+		$output = "<option value = ''>Any province/district</option>";
 		foreach($provinces as $province){
 			$selected = "";
 			if(isset($_POST['province'])){
@@ -296,7 +296,7 @@ class viewStrategy{
 		foreach($statusCodes as $statusCode){
 			$selected = "";
 			if(isset($_POST['accountstatus'])){
-				if($_POST['accountstatus'] == $statusCode->statusCode){
+				if($_POST['accountstatus'] == $statusCode){
 					$selected = " selected ";
 				}
 			}
@@ -321,7 +321,11 @@ class viewStrategy{
 	public static function getProvincesOptions($region, $selectedValue = ""){
 		$regCode = refregion::where('regDesc', $region)->first()->regCode;
 		$provinces= refprovince::where('regCode', $regCode)->get();
-		$output = "<option value = ''>Any provinces</option>";
+		$output = "<option value = ''>choose province</option>";
+		if($region == "NATIONAL CAPITAL REGION (NCR)"){
+		$output = "<option value = ''>choose district</option>";
+	
+		}
 		foreach($provinces as $province){
 			$selected =  "";
 			if(isset($_POST['province'])){
@@ -361,6 +365,28 @@ class viewStrategy{
 		echo $output;
 			
 	}
+	public static function getAccountInfo(){
+		$region = (Auth::user()->region) ? ("Region: " . Auth::user()->region . "<br/>") : "";
+		$provinceOrDistrict = (Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)") ? "District: " : "Province ";
+		$province = (Auth::user()->province) ? ($provinceOrDistrict . Auth::user()->province."<br>") : "" ;
+		$municipality = (Auth::user()->municipality) ? ("Municipality: ".Auth::user()->municipality."<br>") : "" ;
+		date_default_timezone_set("Asia/Manila");
+		$today = date("Y-m-d");
+		$department = accountsStrategy::determineDepartment(Auth::user()->department_id);
+		$dept = 'Department: <label id = "mydepartment">'.$department.'';
+		$output = 
+		'
+		Logged in as: '.Auth::user()->lastname . ', ' . Auth::user()->firstname . '</br>
+           
+            '.$region.'
+            '.$province.'
+            '.$municipality.'
+           <br>
+            Date today: '.$today.'<br/>
 
+            '.$dept.'
+            ';
+		return $output;
+	}
 }
 ?>

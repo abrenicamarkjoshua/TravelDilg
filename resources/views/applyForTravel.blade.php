@@ -11,7 +11,7 @@
 
                     <div class="row" style = "margin-top:-30px">
                         <div class="col-lg-10 col-lg-offset-1 form-box">
-                          
+                          <h4><?php echo App\viewStrategy::getAccountInfo();?></h4>
                           <form role="form" class="registration-form" enctype="multipart/form-data" name = 'applicationform' class="pure-form pure-form-aligned" method="POST" action="/applyForTravel">
                             
                        
@@ -33,7 +33,7 @@
                                         <?php echo $region;?>
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
-                                      <label for="province" class= "mylabel">Province:</label>
+                                      <label for="province" class= "mylabel">{{($region == "NATIONAL CAPITAL REGION (NCR)") ? "District" : "Province"}}:</label>
                                       <?php
                                        if(Auth::user()->province){
                                          
@@ -135,7 +135,7 @@
                                       <input  class = "pure-u-11-24" autocomplete="off" required id="email" name = "email" type="email">
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
-                                      <label class= "mylabel" for="picture">Picture:</label>
+                                      <label class= "mylabel" for="picture"><i style = "color:red">Attach only 2x2 picture</i></label>
                                         <input id = 'uploadpicture' required name = "picture" type="file" accept="image/gif, image/jpeg, image/png"></input>
                                       
                                   </div>
@@ -251,7 +251,7 @@
                                 <div class="form-group pure-u-1 pure-u-md-1-3" id = "uploaddocuments">
 
                                     <label class = "mylabel" >Updated picture (PLEASE UPLOAD 2x2 ONLY):</label>
-                                    <input  name = "updatedPicture" type="file" accept="image/gif, image/jpeg">
+                                    <input  name = "updatedPicture" type="file" required accept="image/gif, image/jpeg">
                                     <br><br><br>
                                     <h3>pls. for Administrative requirements uploading</h3>
                                     <input  name = "documents[]" type="file" accept="application/pdf"/>
