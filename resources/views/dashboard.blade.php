@@ -34,7 +34,7 @@ date_default_timezone_set("Asia/Manila");
                     <td  style = "width:197px">
                       <select name = 'travelstatus'>
                         <?php
-                        echo App\viewStrategy::getAllTravelStatusOptions();
+                        echo App\viewStrategy::getAllTravelStatusOptions($department);
                         ?>
                       </select>
                     </td>
@@ -90,9 +90,12 @@ date_default_timezone_set("Asia/Manila");
                   <tr>
                       <th style = "width:197px">Travelcode</th>
                       <th  style = "width:197px">STATUS</th>
-                      
+                      <?php 
+                      $asc = "asc";
+                      ?>
                    @if($department != "LGU")
                       @if($department != "DILG RO")
+                      
                       <th style = "width:197px">REGION</th>
                       @endif
                       <th style = "width:197px">{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "CITY" : "PROVINCE/DISTRICT"}}</th>

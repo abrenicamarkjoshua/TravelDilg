@@ -1309,18 +1309,18 @@ class HomeController extends Controller{
     }
 
 	
-	public function getIndex(){
+	public function getIndex(Request $request){
 	
 		$this->data['title'] = "Travel applications";	
 		//if immigration...
 		if(Auth::user()->department_id == 6){
 			$this->data['title'] = "Approved travel applications";	
-		$matchThese = [];
-		
-		$travelApplications = travelApplication::where($matchThese)->orderBy('applicationstatus', 'desc')->get();
+			$matchThese = [];
+			
+			$travelApplications = travelApplication::where('applicationstatus', 'APPROVED')->orderBy('applicationstatus', 'desc')->get();
 
-		$this->data['travelApplications'] = $travelApplications;
-		return view('dashboard', $this->data);
+			$this->data['travelApplications'] = $travelApplications;
+			return view('dashboard', $this->data);
 		} else{
 			$matchThese = [];
 		if(Auth::user()->province){
@@ -1332,9 +1332,18 @@ class HomeController extends Controller{
 		if(Auth::user()->municipality){
 			$matchThese["municipality"] = Auth::user()->municipality;
 		}
-			
-		$travelApplications = travelApplication::where($matchThese)->orderBy('applicationstatus')->get();
+		if($request->has('orderBy')){
+		$ascDesc = "asc";
+		if($request->has('asc')){
+		$ascDesc = $request->asc;
+		}
+		$travelApplications = travelApplication::where($matchThese)->orderBy($request->orderBy, $ascDesc)->get();
 
+		}else{
+		$travelApplications = travelApplication::where($matchThese)->orderBy('applicationstatus')->get();
+	
+		}
+		
 		$this->data['travelApplications'] = $travelApplications;
 		return view('dashboard', $this->data);
 	

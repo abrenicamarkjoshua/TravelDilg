@@ -51,6 +51,7 @@ class viewStrategy{
 		$onclick = "";
 		
 		if($application->applicationstatus != "APPROVED"){
+			$onclick = "";
 			switch($department){
 
 				case "DILG PO":
@@ -92,6 +93,7 @@ class viewStrategy{
 							$action = 'approve';
 							$btnName = 'btnApprove';
 							$btnValue = 'approve';
+							$onclick = "onclick=\"return confirm('Are you sure you want to approve this document?');\"";
 							
 					} else{
 						return "";
@@ -108,7 +110,7 @@ class viewStrategy{
 			$form .= "<input type = 'hidden' name = 'travelApplication_id' value = '$application->id' />";
           
 			$form .= "</form>";
-			if($application->applicationstatus != "APPROVED"){
+			if($application->applicationstatus != "APPROVED" || $department == "BLGS"){
 				$form .= "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px; float: left; width: 257px; height: 54px;'>".$application->remarks."</textarea>";
 			}
 		}
@@ -307,7 +309,7 @@ class viewStrategy{
 		}
 		return $output;
 	}
-		public static function getAllTravelStatusOptions(){
+		public static function getAllTravelStatusOptions($department = ""){
 		$statusCodes = statusCode::all();
 		$output = "<option value = ''>Any status</option>";
 		foreach($statusCodes as $statusCode){
@@ -317,7 +319,23 @@ class viewStrategy{
 					$selected = " selected ";
 				}
 			}
+			switch($department){
+
+			}
+			if($department == "USEC" || $department == "OSEC"){
+				if($statusCode->statusCode == "ON PROCESS (BLGS)"){
+					continue;
+				}
+			}
 			$output .= "<option $selected value = '$statusCode->statusCode'>$statusCode->statusCode</option>";
+		}
+		switch($department){
+			case "IMMIGRATION":
+				$output = "
+				<option selected value = 'APPROVED'>APPROVED</option>
+				";
+				return $output;
+			break;
 		}
 		return $output;
 	}
