@@ -270,7 +270,7 @@ class HomeController extends Controller{
 		}
 		
 
-		return redirect("/");	
+		return redirect("/")->with('Affirm', 'Successfully forwarded to Usec with Initials');	
 	}
 	public function getViewApplication($id){
 		$applicationForm = travelApplication::find($id);
