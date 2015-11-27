@@ -236,7 +236,7 @@ class HomeController extends Controller{
 		}
 		
 
-		return redirect("/");
+		return redirect("/")->with('Affirm', 'Successfully forwarded to Usec');
 	}
 	public function postSendToOsec($id){
 		
@@ -252,7 +252,7 @@ class HomeController extends Controller{
 		}
 		
 
-		return redirect("/");
+		return redirect("/")->with('Affirm', 'Successfully forwarded to Usec');
 	}
 	public function postInitialToUsec($id){
 

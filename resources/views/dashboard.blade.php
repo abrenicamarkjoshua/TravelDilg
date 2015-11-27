@@ -19,6 +19,11 @@ date_default_timezone_set("Asia/Manila");
 
             Department: <label id = "mydepartment"><?php echo $department;?></label>
            </h4>
+           @if (session('Affirm'))
+              <div class="alert alert-success">
+                  {{ session('Affirm') }}
+              </div>
+          @endif
            </div>
           <div class = "header no-print">
             <h2 style = 'color:white;'>{{$title}}</h2>
