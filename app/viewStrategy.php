@@ -112,12 +112,17 @@ class viewStrategy{
 			$form .= "<input type = 'hidden' name = 'travelApplication_id' value = '$application->id' />";
           
 			$form .= "</form>";
-			if($application->applicationstatus != "APPROVED" || $department == "BLGS"){
+			if($application->applicationstatus != "APPROVED"){
 				$form .= "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px; float: left; width: 257px; height: 54px;'>".$application->remarks."</textarea>";
 			}
 			
 		}
-
+		else{
+			if($department == "BLGS"){
+				$form .= "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px;  width: 257px; height: 54px;'>".$application->remarks."</textarea>";
+			
+			}
+		}
 		return $form;
 	}
 	public static function getRegionCode($region){
@@ -312,7 +317,7 @@ class viewStrategy{
 		}
 		return $output;
 	}
-		public static function getAllTravelStatusOptions($department = ""){
+	public static function getAllTravelStatusOptions($department = ""){
 		$statusCodes = statusCode::all();
 		$output = "<option value = ''>Any status</option>";
 		foreach($statusCodes as $statusCode){
