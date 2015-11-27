@@ -659,7 +659,7 @@ class HomeController extends Controller{
 			'flightinfo_dateto'=> (isset($_POST['dateto'])) ? $_POST['dateto'] : "",
 			'flightinfo_natureOfTravelRequested'=> (isset($_POST['natureOfTravelRequested'])) ? $_POST['natureOfTravelRequested'] : "",
 			'flightinfo_travelRequested'=> $travelRequested,
-			'created_at' => date("Y-m-d H:i:s"),
+			
 			'applyEntitlements' => $applicationEntitlements,
 			'entitlements' => $entitlements
 		];
