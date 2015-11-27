@@ -1177,6 +1177,11 @@ class HomeController extends Controller{
 		}
 
 		$municipality = (isset($_POST['municipality'])) ? $_POST['municipality'] : "";
+		$countries = "";
+		foreach($_POST['country'] as $country){
+			$countries .= $country . ", ";
+		}
+		$countries = rtrim($countries, ', ');
 		$insert = [
 		'applicationstatus' => "ON PROCESS (BLGS)",
 		'remarks' => "",
@@ -1196,7 +1201,7 @@ class HomeController extends Controller{
 		'travelType'=> $travelType,
 		'groupDelegation'=> $_POST['groupDelegation'],
 		'benefits' =>$_POST['benefits'],
-		'flightinfo_country'=> $_POST['country'],
+		'flightinfo_country'=> $countries,
 		'flightinfo_purpose'=> $_POST['purpose'],
 		'flightinfo_datefrom'=> $_POST['datefrom'],
 		'flightinfo_dateto'=> $_POST['dateto'],
@@ -1387,9 +1392,9 @@ class HomeController extends Controller{
 			$dateFromString = $dateFrom->format('Y-m-d');
 			$dateToString = $dateTo->format('Y-m-d') . " 23:59:00";
 
-			$travelApplications = travelApplication::where($matchThese)->where('created_at', '<=', $dateToString)->where('created_at', '>=', $dateFromString)->orderBy('updated_at')->get();
+			$travelApplications = travelApplication::where($matchThese)->where('created_at', '<=', $dateToString)->where('created_at', '>=', $dateFromString)->orderBy('updated_at')->orderBy('updated_at', 'desc')->get();
 		}else{
-			$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at')->get();
+			$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
 		}
 		$this->data['travelApplications'] = $travelApplications;
 		return view('dashboard', $this->data);

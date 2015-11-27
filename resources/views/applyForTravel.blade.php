@@ -157,16 +157,20 @@
                                 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="name">Country:</label>
-                                    <select class = "pure-u-11-24" required name="country">
-                                      <option value = "">Please select country</option>                      
-                                      <?php
-                                        foreach($countries as $country){
-                                          
-                                          echo "<option value = '{$country->country_name}'>{$country->country_name}</option>";
-                                          
-                                        }
-                                      ?>
-                                    </select>
+                                    <div id = "addcountries" style  = "margin-left:20px;">
+                                      <select class = "pure-u-11-24" required name="country[]">
+                                        <option value = "">Please select country</option>                      
+                                        <?php
+                                          foreach($countries as $country){
+                                            
+                                            echo "<option value = '{$country->country_name}'>{$country->country_name}</option>";
+                                            
+                                          }
+                                        ?>
+                                      </select>
+                                    </div>
+                                    <button id = "addmorecountry" type = 'button'>Add country</button>
+
                                 </div>
 
                                
