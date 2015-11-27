@@ -90,9 +90,7 @@ date_default_timezone_set("Asia/Manila");
                   <tr>
                       <th style = "width:197px">Travelcode</th>
                       <th  style = "width:197px">STATUS</th>
-                      <?php 
-                      $asc = "asc";
-                      ?>
+                     
                    @if($department != "LGU")
                       @if($department != "DILG RO")
                       

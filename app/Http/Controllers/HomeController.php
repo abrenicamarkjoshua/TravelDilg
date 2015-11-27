@@ -236,7 +236,7 @@ class HomeController extends Controller{
 		}
 		
 
-		return redirect("view/$travelApplication->id");
+		return redirect("/");
 	}
 	public function postSendToOsec($id){
 		
@@ -252,7 +252,7 @@ class HomeController extends Controller{
 		}
 		
 
-		return redirect("view/$travelApplication->id");
+		return redirect("/");
 	}
 	public function postInitialToUsec($id){
 
@@ -270,7 +270,7 @@ class HomeController extends Controller{
 		}
 		
 
-		return redirect("view/$travelApplication->id");	
+		return redirect("/");	
 	}
 	public function getViewApplication($id){
 		$applicationForm = travelApplication::find($id);
@@ -637,7 +637,7 @@ class HomeController extends Controller{
 		}
 		
 		$this->data['post'] = [
-			'applicationstatus' => (isset($_POST['status'])) ? $_POST['status'] : "",
+			
 			'remarks' => (isset($_POST['remarks'])) ? $_POST['remarks'] : "" ,	
 			'firstname' => (isset($_POST['firstname'])) ? $_POST['firstname'] : "",
 			'lastname'=>(isset($_POST['lastname'])) ? $_POST['lastname'] : "",
@@ -1317,7 +1317,7 @@ class HomeController extends Controller{
 			$this->data['title'] = "Approved travel applications";	
 			$matchThese = [];
 			
-			$travelApplications = travelApplication::where('applicationstatus', 'APPROVED')->orderBy('applicationstatus', 'desc')->get();
+			$travelApplications = travelApplication::where('applicationstatus', 'APPROVED')->orderBy('updated_at', 'desc')->get();
 
 			$this->data['travelApplications'] = $travelApplications;
 			return view('dashboard', $this->data);
@@ -1332,17 +1332,9 @@ class HomeController extends Controller{
 		if(Auth::user()->municipality){
 			$matchThese["municipality"] = Auth::user()->municipality;
 		}
-		if($request->has('orderBy')){
-		$ascDesc = "asc";
-		if($request->has('asc')){
-		$ascDesc = $request->asc;
-		}
-		$travelApplications = travelApplication::where($matchThese)->orderBy($request->orderBy, $ascDesc)->get();
-
-		}else{
-		$travelApplications = travelApplication::where($matchThese)->orderBy('applicationstatus')->get();
+		
+		$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
 	
-		}
 		
 		$this->data['travelApplications'] = $travelApplications;
 		return view('dashboard', $this->data);
@@ -1358,7 +1350,7 @@ class HomeController extends Controller{
 			$this->data['title'] = "Approved travel applications";	
 		$matchThese = [];
 		
-		$travelApplications = travelApplication::where($matchThese)->orderBy('applicationstatus', 'desc')->get();
+		$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
 
 		$this->data['travelApplications'] = $travelApplications;
 		return view('dashboard', $this->data);
@@ -1389,7 +1381,7 @@ class HomeController extends Controller{
 			$matchThese["applicationstatus"]= $request->travelstatus;
 		}
 		
-		$travelApplications = travelApplication::where($matchThese)->orderBy('applicationstatus')->get();
+		$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at')->get();
 
 		$this->data['travelApplications'] = $travelApplications;
 		return view('dashboard', $this->data);
@@ -1417,7 +1409,7 @@ class HomeController extends Controller{
 			break;
 		} 
 
-		$travelApplications = travelApplication::where($matchThese)->orderBy('created_at', 'desc')->get();
+		$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
 
 		$this->data['travelApplications'] = $travelApplications;
 		return view('dashboard', $this->data);

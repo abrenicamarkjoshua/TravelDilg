@@ -339,7 +339,7 @@
                                     <a target="_blank" href = "{{asset($document->location)}}">{{$document->name}}</a> <i>{{$document->remarks}}</i>
                                     @if($document->categories == "updated picture"):
 
-                                    <input  name = "updatedPicture" type="file" accept="image/gif, image/jpeg, image/png"/> Upload revision
+                                    <input  name = "updatedPicture" type="file" accept="image/gif, image/jpeg, image/png"/> Upload Updated picture
                                     <input type = 'hidden' name = 'updatedpicture_id' value = '{{$updatedpicture_id}}'/>
                                     @else:
                                     <input  name = "documents[]" type="file" accept="application/pdf"/> Upload revision

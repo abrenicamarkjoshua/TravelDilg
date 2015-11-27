@@ -15,8 +15,8 @@ class viewStrategy{
 				//blgs
 				case 2:
 					if($mode == "edit"){
-						$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToUsec" class="pure-button pure-button-primary">SEND TO USEC</button>';
-						$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToOsec" class="pure-button pure-button-primary">SEND TO OSEC</button>';
+						$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToUsec" class="pure-button pure-button-primary">FORWARD TO USEC</button>';
+						$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToOsec" class="pure-button pure-button-primary">FORWARD TO OSEC</button>';
 						$output .= '<button style = "margin-right:20px" type="submit" name = "btnInitialToUsec" class="pure-button pure-button-primary">INITIAL TO USEC</button>';
 					}
 				break;
@@ -76,7 +76,8 @@ class viewStrategy{
 				break;
 				case "BLGS":
 					if($application->applicationstatus == "ON PROCESS USEC"  || $application->applicationstatus == "ON PROCESS OSEC"){
-						return "";
+
+						return "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px; width: 257px; height: 54px;'>".$application->remarks."</textarea>";
 					} else{
 						//show drop button
 						$action = 'edit';
@@ -104,6 +105,7 @@ class viewStrategy{
 					return $form;
 					break;
 			}
+			
 			$form .= "<form style = 'float:left;' action = '$action/$application->id' method = 'post'>";
 			$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
 			$form .= "<input type='hidden' name='_token' value='" . csrf_token() ."' />";
@@ -113,6 +115,7 @@ class viewStrategy{
 			if($application->applicationstatus != "APPROVED" || $department == "BLGS"){
 				$form .= "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px; float: left; width: 257px; height: 54px;'>".$application->remarks."</textarea>";
 			}
+			
 		}
 
 		return $form;
