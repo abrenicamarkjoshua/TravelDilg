@@ -189,3 +189,13 @@ font-size: 16px;
 h4{
     color:white;
 }
+
+@media print
+{    
+    .no-print, .no-print *
+    {
+        display: none !important;
+    }
+}
+table.fixed { table-layout:fixed; }
+table.fixed td { overflow: hidden; }

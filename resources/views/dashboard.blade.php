@@ -3,6 +3,7 @@
 @section('content')
 
       <div class="content">
+            <div class="no-print">
            <h4>Logged in as: <?php echo Auth::user()->lastname . ", " . Auth::user()->firstname;?></br>
            <?php 
             echo (Auth::user()->region) ? ("Region: " . Auth::user()->region . "<br/>") : "";
@@ -18,13 +19,14 @@ date_default_timezone_set("Asia/Manila");
 
             Department: <label id = "mydepartment"><?php echo $department;?></label>
            </h4>
-          <div class = "header">
+           </div>
+          <div class = "header no-print">
             <h2 style = 'color:white;'>{{$title}}</h2>
 
           </div>
           <div style = "margin-top:30px">
           </div>
-           <div style="width: 100%;background-color:white; margin-bottom:10px;">
+           <div style="width: 100%;background-color:white; margin-bottom:10px;" class = "no-print">
             <table class = "pure-table"  style="table-layout:fixed;">
                 
                 <tr style = "background-color:white;">
@@ -38,7 +40,13 @@ date_default_timezone_set("Asia/Manila");
                         ?>
                       </select>
                     </td>
-                    
+                    <td>
+                      from: 
+                      <input type = 'date' name = 'dateFrom' value = '{{(isset($_POST["dateFrom"])) ? $_POST["dateFrom"] : ""}}'/>
+                    </td>
+                    <td>
+                     to <input type = 'date' name = 'dateTo'  value = '{{(isset($_POST["dateTo"])) ? $_POST["dateTo"] : ""}}'/>
+                    </td>
                   @if($department != "LGU" && $department != "DILG PO")
                     @if($department != "DILG RO")
                     <td style = "width:197px">
@@ -76,37 +84,43 @@ date_default_timezone_set("Asia/Manila");
                    <?php
                     }
                       ?>
+                      
                       <td>
+                      <button type = 'submit' class="pure-button pure-button-primary" name = 'btnSearch'>Search</button>
                       </td>
-                    <td><button type = 'submit' class="btn btn-next" name = 'btnSearch'>Search</button></td>
+                    <td><button type = 'button' onclick = "print()" class = "pure-button pure-button-secondary">Print</button></td>
+
                   </form>
                 </tr>
+
             </table>
            </div>
+          
+
           <div>
-          <table class="pure-table">
+          <table class="pure-table" class = "fixed">
 
                   <thead>
                   <tr>
-                      <th style = "width:197px">Travelcode</th>
-                      <th  style = "width:197px">STATUS</th>
+                      <th>Travelcode</th>
+                      <th>STATUS</th>
                      
                    @if($department != "LGU")
                       @if($department != "DILG RO")
                       
-                      <th style = "width:197px">REGION</th>
+                      <th>REGION</th>
                       @endif
-                      <th style = "width:197px">{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "CITY" : "PROVINCE/DISTRICT"}}</th>
+                      <th>{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "CITY" : "PROVINCE/DISTRICT"}}</th>
                     @endif
-                      <th  style = "width:197px" >{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "MUNICIPALITY" : "CITY/MUNICIPALITY"}}</th>
-                      <th  style = "width:197px" >FIRSTNAME</th>
-                      <th  style = "width:197px" >LASTNAME</th>
-                      <th  style = "width:197px" >TYPE OF POSITION</th>
-                      <th  style = "width:197px" >NATURE OF TRAVEL</th>
-                      <th  style = "width:197px" >DESIGNATION</th>
-                      <th  style = "width:197px" >DURATION</th>
-                      <th  style = "width:197px" >DATE APPLIED</th>
-                      <th style = "width:197px">DATE APPROVED</th>
+                      <th>{{(Auth::user()->region == "NATIONAL CAPITAL REGION (NCR)" ) ? "MUNICIPALITY" : "CITY/MUNICIPALITY"}}</th>
+                      <th>FIRSTNAME</th>
+                      <th>LASTNAME</th>
+                      <th>TYPE OF POSITION</th>
+                      <th>NATURE OF TRAVEL</th>
+                      <th>DESIGNATION</th>
+                      <th>DURATION</th>
+                      <th>DATE APPLIED</th>
+                      <th>DATE APPROVED</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -140,7 +154,7 @@ date_default_timezone_set("Asia/Manila");
                     <td>{{$travelApplications[$i]->created_at}}</td>
 
                     <td>{{$travelApplications[$i]->dateapproved}}</td>
-                    <td style="white-space:nowrap">
+                    <td style="white-space:nowrap" class = "no-print">
                       <?php
                       echo App\viewStrategy::TravelListAction($department, $travelApplications[$i]);
                       ?>

@@ -92,6 +92,7 @@ document.getElementById('toggle').addEventListener('click', function (e) {
 
 
 // $(function(){
+
 //     $("table").stickyTableHeaders();
 // });
 

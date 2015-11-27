@@ -20,7 +20,7 @@ use App\links;
 use App\department;
 use App\accountaccessiblelinks;
 use App\attachedDocuments;
-
+use DateTime;
 class HomeController extends Controller{
 	//abrenicamarkjoshua@gmail.com
 	protected $links;
@@ -1381,8 +1381,16 @@ class HomeController extends Controller{
 			$matchThese["applicationstatus"]= $request->travelstatus;
 		}
 		
-		$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at')->get();
+		if($_POST['dateFrom'] != "" && $_POST['dateTo'] != ""){
+			$dateFrom = new DateTime($_POST['dateFrom']);
+			$dateTo = new DateTime($_POST['dateTo']);
+			$dateFromString = $dateFrom->format('Y-m-d');
+			$dateToString = $dateTo->format('Y-m-d') . " 23:59:00";
 
+			$travelApplications = travelApplication::where($matchThese)->where('created_at', '<=', $dateToString)->where('created_at', '>=', $dateFromString)->orderBy('updated_at')->get();
+		}else{
+			$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at')->get();
+		}
 		$this->data['travelApplications'] = $travelApplications;
 		return view('dashboard', $this->data);
 	

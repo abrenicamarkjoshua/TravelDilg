@@ -1,5 +1,5 @@
 		
-		<div class="custom-menu-wrapper">
+		<div class="custom-menu-wrapper no-print">
 		    <div class="pure-menu custom-menu custom-menu-top">
 		        <a href="/home" class="pure-menu-heading custom-menu-brand">DILG - travel [<?php echo $department;?>]</a>
 		        <a href="#" class="custom-menu-toggle" id="toggle"><s class="bar"></s><s class="bar"></s></a>
