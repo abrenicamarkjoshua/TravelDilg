@@ -5,7 +5,7 @@ namespace App;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 class viewStrategy{
-	public static function getApproveActions($department_id, $applicationForm, $mode = "view"){
+	public static function getApproveActions($department_id, $applicationForm, $mode = "view", $accountType = ""){
 		$output = "";
 		$userauthority = userauthority::where('department_id', $department_id)->get()->first();
 		$sendTo = "SEND TO USEC";
@@ -14,10 +14,36 @@ class viewStrategy{
 			switch($department_id){	
 				//blgs
 				case 2:
-					if($mode == "edit"){
-						$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToUsec" class="pure-button pure-button-primary">FORWARD TO USEC</button>';
-						$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToOsec" class="pure-button pure-button-primary">FORWARD TO OSEC</button>';
-						$output .= '<button style = "margin-right:20px" type="submit" name = "btnInitialToUsec" class="pure-button pure-button-primary">INITIAL TO USEC</button>';
+					if($accountType == ""){
+						if($mode == "edit"){
+							$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToUsec" class="pure-button pure-button-primary">FORWARD TO USEC</button>';
+							$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToOsec" class="pure-button pure-button-primary">FORWARD TO OSEC</button>';
+							$output .= '<button style = "margin-right:20px" type="submit" name = "btnInitialToUsec" class="pure-button pure-button-primary">INITIAL TO USEC</button>';
+						}
+					} else{
+						switch($accountType){
+							case 4:
+							case 5:
+							case 6:
+							case 7:
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase2" class="pure-button pure-button-primary">Send to BLGS Phase 2</button>';
+								
+							break;
+
+							case 8:
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase2" class="pure-button pure-button-primary">Send to BLGS Phase 1</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase1" class="pure-button pure-button-primary">Send to BLGS Phase 3</button>';
+								
+							break;
+
+							case 9:
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToUsec" class="pure-button pure-button-primary">FORWARD TO USEC</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToOsec" class="pure-button pure-button-primary">FORWARD TO OSEC</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnInitialToUsec" class="pure-button pure-button-primary">INITIAL TO USEC</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase2" class="pure-button pure-button-primary">Send to BLGS Phase 2</button>';
+								
+							break;
+						}
 					}
 				break;
 				

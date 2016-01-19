@@ -361,7 +361,12 @@
                                 </div>
                                 <div class="form-bottom pure-g">
                                    <?php
+                                   if(Auth::user()->accountType_id != 0){
+                                   echo App\viewStrategy::getApproveActions(Auth::user()->department_id, $applicationForm, "edit", Auth::user()->accountType_id);
+                                  }else{
                                    echo App\viewStrategy::getApproveActions(Auth::user()->department_id, $applicationForm, "edit");
+                                    
+                                  }
                                   ?>
                                    <button type="button" class="btn btn-previous">Previous</button>
                                 </div>

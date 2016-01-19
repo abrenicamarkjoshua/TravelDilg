@@ -208,15 +208,6 @@
                                     <textarea data-field="x_group_name" name="groupDelegation" id="x_group_name" cols="40" rows="4" placeholder="IF GROUP/DELEGATION PLS LIST THE NAMES"></textarea>
                                 </div>
                                 
-
-                                <div class="form-group pure-u-1 pure-u-md-1-3">
-                                    <label class= "mylabel">Travel type:</label>
-                                    <input type = 'checkbox' name = 'officialTime'>OTO (Official time only)</input>&nbsp&nbsp&nbsp
-                                    <input type = 'checkbox' name = 'OfficialBusinesswithAirfare'>OB (Official Business)</input>&nbsp&nbsp&nbsp
-                                    <input type = 'checkbox' name = 'OfficialLeaveOfAbsence'>OLA (Official leave of absence)</input>&nbsp&nbsp&nbsp
-                                  
-                                </div>
-
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Nature of travel requested:</label>
                                     
@@ -225,6 +216,15 @@
                                     <input required type = 'radio' name = 'natureOfTravelRequested' value = 'Personal'>Personal</input>
                                   
                                 </div>
+                                <div class="form-group pure-u-1 pure-u-md-1-3">
+                                    <label class= "mylabel">Travel type:</label>
+                                    <input type = 'checkbox' name = 'officialTime'>OTO (Official time only)</input>&nbsp&nbsp&nbsp
+                                    <input type = 'checkbox' name = 'OfficialBusinesswithAirfare'>OB (Official Business)</input>&nbsp&nbsp&nbsp
+                                    <input type = 'checkbox' name = 'OfficialLeaveOfAbsence'>OLA (Official leave of absence)</input>&nbsp&nbsp&nbsp
+                                  
+                                </div>
+
+                              
 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Entitlement requested</label>

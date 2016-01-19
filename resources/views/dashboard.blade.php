@@ -17,7 +17,8 @@
 date_default_timezone_set("Asia/Manila"); 
             echo date("Y-m-d")?><br/>
 
-            Department: <label id = "mydepartment"><?php echo $department;?></label>
+            Department: <label id = "mydepartment"><?php echo $department;?></label><br>
+            <?php echo Auth::user()->accounttype();?>
            </h4>
            @if (session('Affirm'))
               <div class="alert alert-success">

@@ -536,6 +536,7 @@ class HomeController extends Controller{
 		
 		$applicationForm = travelApplication::find($id);
 		$statusMatch = [];
+		//TODO: refactor this to be dynamic
 		if(Auth::user()->department_id == 1 || Auth::user()->department_id == 3){
 			return "Your account is not permitted to see this record";
 		}

@@ -103,7 +103,7 @@ $fpdf =  new Fpdf('P','mm', array(215.9, 330.2));
                 ];
     $updatedTwoByTwoPicture = (App\attachedDocuments::where($match)->first()) ? App\attachedDocuments::where($match)->first()->location : "";
     if($updatedTwoByTwoPicture){
-     $fpdf->Image($updatedTwoByTwoPicture,20,170,-350);
+         $fpdf->Image($updatedTwoByTwoPicture,20,170,-350);
     }else{
          $fpdf->Image($applicationForm->picture,20,170,-350);
     }
@@ -113,7 +113,7 @@ $fpdf =  new Fpdf('P','mm', array(215.9, 330.2));
         if(strtolower($applicationForm->position) == "governor"){
 
             $fpdf->SetFont('Times','',11);
-            $fpdf->Image('mar_roxas.png',120,170,50);       
+            //$fpdf->Image('mar_roxas.png',120,170,50);       
             $fpdf->text(137 ,192,"Secretary");
             $fpdf->text(137 ,197,$barcodeHeading);
             if($applicationForm->InitialToUsec){

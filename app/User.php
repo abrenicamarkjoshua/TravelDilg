@@ -49,6 +49,18 @@ class User extends Model implements AuthenticatableContract,
         'province',
         'municipality',
         'department_id',
-        'contactnumber'
+        'contactnumber',
+        'accountType_id'
     ];
+    public function accounttype(){
+        if($this->accountType_id != 0){
+        $output =  accounttype::find($this->accountType_id)->accountType;
+            if($output){
+            return "Account type: $output";
+            }
+            else{
+                return "";
+            }
+        }
+    }
 }
