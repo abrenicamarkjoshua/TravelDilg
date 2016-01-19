@@ -674,6 +674,7 @@ class HomeController extends Controller{
 		
 		$updatedpicture_id = (attachedDocuments::where($matchpicture)->first()) ? attachedDocuments::where($matchpicture)->first()->id : "";
 		$this->data['updatedpicture_id'] = $updatedpicture_id;
+		//TODO: Refactor this code to be more secured.
 		if(isset($_POST['approve'])){
 			//begin save
 				$applicationForm->update($this->data['post']);
@@ -704,9 +705,9 @@ class HomeController extends Controller{
 			return $this->postApproveTravel($id);
 			
 		}
-		if(isset($_POST['btnSendToUsec'])){
+		function save($applicationForm, $request, $data){
 			//begin save
-				$applicationForm->update($this->data['post']);
+				$applicationForm->update($data);
 				
 				//upload updated pic
 		       if($request->hasFile('updatedPicture')){
@@ -731,70 +732,66 @@ class HomeController extends Controller{
 		       		
 		       }
 	       //end save
+		}
+		if(isset($_POST['btnSendToUsec'])){
+			save($applicationForm, $request, $this->data['post']);
 			return $this->postSendToUsec($id);
 		}
 		if(isset($_POST['btnSendToOsec'])){
-			//begin save
-				$applicationForm->update($this->data['post']);
-				
-				//upload updated pic
-		       if($request->hasFile('updatedPicture')){
-		       	//upload updated picture 
-		       	if(strlen($request->file('updatedPicture')->getClientOriginalName()) > 0){
-		       		$request->file('updatedPicture')->move('documents/', $request->file('updatedPicture')->getClientOriginalName());
-		       		
-	    		} else{
-	    			
-	    		}
-		       }
-		       //update and upload docs
-				if ($request->hasFile('documents')) {
-		    		//
-					for($i = 0; $i <= count($request->file('documents')) - 1; $i++){
-						if(strlen($request->file('documents')[$i]->getClientOriginalName()) > 0){
-							//upload revision. be sure that it is still the same name as the previous uploaded cuz we're not touching the database
-			       			$request->file('documents')[$i]->move('documents/', $request->file('documents')[$i]->getClientOriginalName());
-			      
-				    	}
-		       		}
-		       		
-		       }
-	       //end save
+			save($applicationForm, $request, $this->data['post']);
 			return $this->postSendToOsec($id);
 		}
 		if(isset($_POST['btnInitialToUsec'])){
-			//begin save
-				$applicationForm->update($this->data['post']);
-				
-				//upload updated pic
-		       if($request->hasFile('updatedPicture')){
-		       	//upload updated picture 
-		       	if(strlen($request->file('updatedPicture')->getClientOriginalName()) > 0){
-		       		$request->file('updatedPicture')->move('documents/', $request->file('updatedPicture')->getClientOriginalName());
-		       		
-	    		} else{
-	    			
-	    		}
-		       }
-		       //update and upload docs
-				if ($request->hasFile('documents')) {
-		    		//
-					for($i = 0; $i <= count($request->file('documents')) - 1; $i++){
-						if(strlen($request->file('documents')[$i]->getClientOriginalName()) > 0){
-							//upload revision. be sure that it is still the same name as the previous uploaded cuz we're not touching the database
-			       			$request->file('documents')[$i]->move('documents/', $request->file('documents')[$i]->getClientOriginalName());
-			      
-				    	}
-		       		}
-		       		
-		       }
-	       //end save
+			save($applicationForm, $request, $this->data['post']);
 			return $this->postInitialToUsec($id);
 
 		}
 		
+		if(isset($_POST['btnSendToBLGSDivisionChief'])){
+			save($applicationForm, $request, $this->data['post']);
+			
+			$travelApplication =$applicationForm;
+			
+				$update = [];
+				
+				$update['applicationstatus'] = "ON PROCESS (BLGS Division Chief)";
+				
+				$travelApplication->update($update);
+			
+			
 
+			return redirect("/")->with('Affirm', 'Successfully forwarded to BLGS Division Chief');	
 
+		}
+		if(isset($_POST['btnSendToBLGSStaff'])){
+			save($applicationForm, $request, $this->data['post']);
+			
+			$travelApplication =$applicationForm;
+		
+				
+				$update['applicationstatus'] = "ON PROCESS (BLGS Staff)";
+				
+				$travelApplication->update($update);
+			return redirect("/")->with('Affirm', 'Successfully forwarded to BLGS Staff');	
+
+		}
+		if(isset($_POST['btnSendToBLGSDirector'])){
+			save($applicationForm, $request, $this->data['post']);
+			
+			$travelApplication =$applicationForm;
+			
+				$update = [];
+				
+				$update['applicationstatus'] = "ON PROCESS (BLGS Division Chief)";
+				
+				$travelApplication->update($update);
+			
+			
+
+			return redirect("/")->with('Affirm', 'Successfully forwarded to BLGS Director');	
+
+		}
+		
 		$applicationEntitlements = $applicationForm->entitlements;
 				
 
@@ -1184,7 +1181,7 @@ class HomeController extends Controller{
 		}
 		$countries = rtrim($countries, ', ');
 		$insert = [
-		'applicationstatus' => "ON PROCESS (BLGS)",
+		'applicationstatus' => "ON PROCESS (BLGS Staff)",
 		'remarks' => "",
 		'region' => trim(Auth::user()->region),
 		'province' => trim($_POST['selectprovince']) ,

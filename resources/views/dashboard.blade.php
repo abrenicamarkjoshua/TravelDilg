@@ -42,7 +42,12 @@ date_default_timezone_set("Asia/Manila");
                     <td  style = "width:197px">
                       <select name = 'travelstatus'>
                         <?php
-                        echo App\viewStrategy::getAllTravelStatusOptions($department);
+                        if(Auth::user()->department_id > 3){
+                          echo App\viewStrategy::getAllTravelStatusOptions($department, Auth::user()->accountType_id);
+                        } else{
+
+                          echo App\viewStrategy::getAllTravelStatusOptions($department);
+                        }
                         ?>
                       </select>
                     </td>

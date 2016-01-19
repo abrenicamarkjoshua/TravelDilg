@@ -26,13 +26,13 @@ class viewStrategy{
 							case 5:
 							case 6:
 							case 7:
-								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase2" class="pure-button pure-button-primary">Send to BLGS Phase 2</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSDivisionChief" class="pure-button pure-button-primary">Send to BLGS Division Chief</button>';
 								
 							break;
 
 							case 8:
-								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase2" class="pure-button pure-button-primary">Send to BLGS Phase 1</button>';
-								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase1" class="pure-button pure-button-primary">Send to BLGS Phase 3</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSStaff" class="pure-button pure-button-primary">Send to BLGS staff</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSDirector" class="pure-button pure-button-primary">Send to BLGS Director</button>';
 								
 							break;
 
@@ -40,7 +40,7 @@ class viewStrategy{
 								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToUsec" class="pure-button pure-button-primary">FORWARD TO USEC</button>';
 								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToOsec" class="pure-button pure-button-primary">FORWARD TO OSEC</button>';
 								$output .= '<button style = "margin-right:20px" type="submit" name = "btnInitialToUsec" class="pure-button pure-button-primary">INITIAL TO USEC</button>';
-								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSPhase2" class="pure-button pure-button-primary">Send to BLGS Phase 2</button>';
+								$output .= '<button style = "margin-right:20px" type="submit" name = "btnSendToBLGSDivisionChief" class="pure-button pure-button-primary">Send to BLGS Division Chief</button>';
 								
 							break;
 						}
@@ -343,7 +343,7 @@ class viewStrategy{
 		}
 		return $output;
 	}
-	public static function getAllTravelStatusOptions($department = ""){
+	public static function getAllTravelStatusOptions($department = "", $accountType_id = ""){
 		$statusCodes = statusCode::all();
 		$output = "<option value = ''>Any status</option>";
 		foreach($statusCodes as $statusCode){
@@ -357,7 +357,7 @@ class viewStrategy{
 
 			}
 			if($department == "USEC" || $department == "OSEC"){
-				if($statusCode->statusCode == "ON PROCESS (BLGS)"){
+				if($statusCode->id < 4){
 					continue;
 				}
 			}
@@ -371,6 +371,7 @@ class viewStrategy{
 				return $output;
 			break;
 		}
+		
 		return $output;
 	}
 	public static function getProvincesOptions($region, $selectedValue = ""){

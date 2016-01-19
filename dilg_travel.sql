@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2016 at 11:14 AM
+-- Generation Time: Jan 19, 2016 at 01:04 PM
 -- Server version: 5.5.27
 -- PHP Version: 5.6.11
 
@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS `attacheddocuments` (
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `remarks` text COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=41 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=43 ;
 
 --
 -- Dumping data for table `attacheddocuments`
@@ -120,7 +120,9 @@ INSERT INTO `attacheddocuments` (`id`, `name`, `categories`, `location`, `travel
 (37, 't-img3.jpg', 'updated picture', 'documents/t-img3.jpg', 158, '2015-11-12 16:00:00', '2015-11-13 10:46:09', ''),
 (38, 'UMLClassDiagramTutorial.pdf', '', 'documents/UMLClassDiagramTutorial.pdf', 158, '2015-11-12 16:00:00', '2015-11-13 10:46:09', 'Letter request from mayor'),
 (39, 'me.jpg', 'updated picture', 'documents/me.jpg', 159, '2015-12-01 16:00:00', '2015-12-02 14:10:58', ''),
-(40, 'saas.pdf', '', 'documents/saas.pdf', 159, '2015-12-01 16:00:00', '2015-12-02 14:10:58', 'test');
+(40, 'saas.pdf', '', 'documents/saas.pdf', 159, '2015-12-01 16:00:00', '2015-12-02 14:10:58', 'test'),
+(41, 'me.jpg', 'updated picture', 'documents/me.jpg', 160, '2016-01-18 16:00:00', '2016-01-19 04:14:37', ''),
+(42, 'Getting Started.pdf', '', 'documents/Getting Started.pdf', 160, '2016-01-18 16:00:00', '2016-01-19 04:14:37', 'dropbox sample pdf data');
 
 -- --------------------------------------------------------
 
@@ -2181,25 +2183,26 @@ CREATE TABLE IF NOT EXISTS `orderofapproval` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `department_id` int(11) NOT NULL,
   `description` text,
-  `status` varchar(255) NOT NULL,
+  `status_id` int(11) NOT NULL,
   `accounttype_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `department_id` (`department_id`),
-  KEY `accounttype_id` (`accounttype_id`)
+  KEY `accounttype_id` (`accounttype_id`),
+  KEY `status_id` (`status_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `orderofapproval`
 --
 
-INSERT INTO `orderofapproval` (`id`, `department_id`, `description`, `status`, `accounttype_id`) VALUES
-(1, 2, NULL, 'ON PROCESS BLGS phase 1', 4),
-(2, 2, NULL, 'ON PROCESS BLGS phase 1', 5),
-(3, 2, NULL, 'ON PROCESS BLGS phase 1', 6),
-(4, 2, NULL, 'ON PROCESS BLGS phase 1', 7),
-(5, 2, NULL, 'ON PROCESS BLGS phase 2', 8),
-(6, 2, NULL, 'ON PROCESS BLGS phase 3', 9),
-(7, 4, NULL, 'ON PROCESS USEC', 1);
+INSERT INTO `orderofapproval` (`id`, `department_id`, `description`, `status_id`, `accounttype_id`) VALUES
+(1, 2, NULL, 1, 4),
+(2, 2, NULL, 1, 5),
+(3, 2, NULL, 1, 6),
+(4, 2, NULL, 1, 7),
+(5, 2, NULL, 2, 8),
+(6, 2, NULL, 3, 9),
+(7, 4, NULL, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -4227,22 +4230,24 @@ CREATE TABLE IF NOT EXISTS `securedpages` (
 --
 
 CREATE TABLE IF NOT EXISTS `statuscode` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) NOT NULL AUTO_INCREMENT,
   `statusCode` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `statuscode`
 --
 
 INSERT INTO `statuscode` (`id`, `statusCode`, `created_at`, `updated_at`) VALUES
-(1, 'ON PROCESS (BLGS)', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 'ON PROCESS USEC', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 'ON PROCESS OSEC', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 'APPROVED', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(1, 'ON PROCESS (BLGS Staff)', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'ON PROCESS (BLGS Division Chief)', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 'ON PROCESS (BLGS Director)', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 'ON PROCESS USEC', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 'ON PROCESS OSEC', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 'APPROVED', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -4288,7 +4293,7 @@ CREATE TABLE IF NOT EXISTS `travelapplication` (
   `encodedBy` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `InitialToUsec` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=160 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=161 ;
 
 --
 -- Dumping data for table `travelapplication`
@@ -4435,7 +4440,7 @@ INSERT INTO `travelapplication` (`id`, `applicationstatus`, `blgsstatus`, `remar
 (138, 'ON PROCESS (BLGS)', NULL, '', 'REGION I (ILOCOS REGION)', ' ILOCOS NORTE', 'ADAMS', 'mark joshua', 'abrenica', '', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpg', '09175824979', 'Individual', '', '', '', 'Philippines', 'test upload', '2015-10-21', '2015-10-23', 'Study(Scholarship Grants)', 'Official Business with Airfare,Official time', '2015-10-21 10:00:20', '2015-10-21 10:00:20', '0000-00-00 00:00:00', 'with entitlements, i.e. (a) payment of international airfare (economy), 20% travel allowance representing meals, hotel, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that provincial government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', '', '', '', '', 0),
 (139, 'ON PROCESS (BLGS)', NULL, '', 'REGION I (ILOCOS REGION)', ' ILOCOS NORTE', 'ADAMS', 'mark joshua', 'abrenica', '', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpg', '09175824979', 'OTO;OB;OLA;', '', '', 'test benef', 'United States', 'test purpose', '2015-10-26', '2015-10-28', 'Non study', 'Official Business with Airfare,Official time', '2015-10-24 06:44:12', '2015-10-24 06:44:12', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;Registration fee / participation fee', '', 0),
 (140, 'ON PROCESS (BLGS)', NULL, '', 'REGION I (ILOCOS REGION)', ' ILOCOS NORTE', 'ADAMS', 'mark joshua', 'abrenica', '', 'male', '', '2015-10-24', 'ELECTIVE', 'governor', 'pictures/me.jpg', '09175824979', 'OTO;OB;OLA;', '', '', '', 'United States', 'asdf', '2015-10-26', '2015-10-30', 'Study(Scholarship Grants)', 'Official Business with Airfare,Official time', '2015-10-24 07:01:05', '2015-10-24 07:01:05', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;Registration fee / participation fee', '', 0),
-(141, 'ON PROCESS (BLGS)', NULL, '', 'REGION I (ILOCOS REGION)', ' ILOCOS NORTE', 'ADAMS', 'test new form', 'test new form', '', 'male', '', '2015-10-26', 'ELECTIVE', 'governor', 'pictures/me.jpg', '09175824979', 'OTO;OB;OLA;', 'asdf', '', 'asdf', 'United States', 'asdf', '2015-10-26', '2015-10-30', 'Study(Scholarship Grants)', 'Official Business with Airfare,Official time', '2015-10-24 07:20:25', '2015-10-24 07:20:25', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;Registration fee / participation feeothers;', '', 0),
+(141, 'ON PROCESS USEC', NULL, '', 'REGION I (ILOCOS REGION)', ' ILOCOS NORTE', 'ADAMS', 'test new form', 'test new form', '', 'male', '', '1993-05-11', 'ELECTIVE', 'governor', 'pictures/me.jpg', '09175824979', 'OTO;OB;OLA;', 'asdf', '', '', 'United States', 'asdf', '2015-10-26', '2015-10-30', 'Study(Scholarship Grants)', 'Official Business with Airfare,Official time', '2015-10-24 07:20:25', '2016-01-19 03:53:21', '0000-00-00 00:00:00', 'with entitlements, i.e. (a) 50% travel allowance representing meals, hotel, incidental, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that provincial government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;Registration fee / participation fee;others;', '', 0),
 (142, 'APPROVED', NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'mark joshua', 'abrenica', '', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpg', '09175824979', 'OTO;', '', '', '', 'Philippines', 'for an International Benchmarking Program, organized by the Local Government Academy, in partnership with Creative Learning Inc.', '2015-10-25', '2015-10-28', 'Study(Scholarship Grants)', 'Official time', '2015-11-05 00:53:49', '2015-11-05 01:09:51', '2015-11-05 09:09:51', 'with entitlements, i.e. (a) payment of international airfare (economy), 50% travel allowance representing meals, hotel, incidental, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that provincial government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', 'Regional Director Ma. Lourdes L. Agustin, CESCO IV\r\nOfficer-In-Charge\r\nDILG REGION I (ILOCOS REGION)\r\nADAMS', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);', '', 1),
 (143, 'ON PROCESS USEC', NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'mark joshua', 'abrenica', '', 'male', '', '1993-05-21', 'NON ELECTIVE', 'IT', 'pictures/me.jpg', '09175824979', 'OTO;', '', '', '', 'Philippines', 'asdf', '2015-10-25', '2015-10-28', 'Study(Scholarship Grants)', 'Official time', '2015-10-31 02:14:59', '2015-10-31 02:14:59', '0000-00-00 00:00:00', 'with entitlements, i.e. (a) payment of international airfare (economy), 30% travel allowance representing meals, hotel, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that provincial government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', 'Regional Director Mark Joshua Abrenica, CESCO IV\r\nOfficer-In-Charge\r\nDILG REGION I (ILOCOS REGION)\r\nADAMS', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);', '', 0),
 (147, 'ON PROCESS USEC', NULL, 'remarks here done', 'REGION III (CENTRAL LUZON)', 'TARLAC', '', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpg', '09175824979', '', 'delegation', '', 'benefits', 'United States', 'testing final phase for lgu module', '2015-10-27', '2015-10-30', 'Study(Scholarship Grants)', 'Official Business with Airfare,Official time', '2015-10-30 10:52:08', '2015-11-04 05:24:37', '0000-00-00 00:00:00', 'with entitlements, i.e. (a) payment of international airfare (economy), 50% travel allowance representing meals, hotel, incidental, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;Registration fee / participation fee;others;', 'Masbang, Jeanel, martirez', 0),
@@ -4450,7 +4455,8 @@ INSERT INTO `travelapplication` (`id`, `applicationstatus`, `blgsstatus`, `remar
 (156, 'ON PROCESS USEC', NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'test updated forms and pictures', 'test updated forms', '', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', 'OTO;', '', '', '', 'Afghanistan', 'to test BLGS'' update module regarding documents', '2015-11-06', '2015-11-07', 'Non study', 'Official time', '2015-11-27 09:59:32', '2015-11-27 09:59:32', '0000-00-00 00:00:00', 'with entitlements, i.e. (a) 50% travel allowance representing hotel, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that city government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;', ', , ', 0),
 (157, 'ON PROCESS USEC', NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'test updated forms and pictures', 'test updated forms', '', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', 'OTO;', '', '', '', 'Afghanistan', 'to test BLGS'' update module regarding documents', '2015-11-06', '2015-11-07', 'Non study', 'Official time', '2015-11-27 10:02:43', '2015-11-27 10:02:43', '0000-00-00 00:00:00', 'with entitlements, i.e. (a) payment of international airfare (economy), 20% travel allowance representing meals, hotel, incidental, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that provincial government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;', ', , ', 0),
 (158, 'APPROVED', NULL, 'with director instruction to attach affidavit', 'NATIONAL CAPITAL REGION (NCR)', 'NCR, FOURTH DISTRICT', 'TAGUIG CITY', 'mark joshua', 'abrenica', 'rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/a-img.jpg', '09175824979', 'OTO;OB;OLA;', '', '', '', 'United States', 'meet sir Ferd Collado', '2015-11-13', '2015-11-25', 'Personal', 'Official Business with Airfare,Official time', '2015-11-13 10:56:29', '2015-11-13 11:17:16', '2015-11-13 19:17:16', 'with entitlements, i.e. (a) payment of international airfare (economy), 20% travel allowance representing meals, hotel, incidental, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that provincial government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', 'Regional Director Mark joshua abrenica, CESCO IV\r\nOfficer-In-Charge\r\nDILG NATIONAL CAPITAL REGION (NCR)\r\nTAGUIG CITY', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);Travel allowance;Registration fee / participation fee;others;', ', , ', 1),
-(159, 'APPROVED', NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'mark joshua', 'abrenica', 'rivera', 'male', '5824979', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', 'OTO;', '', '', '', 'United States, Canada', 'test', '2015-12-02', '2015-12-03', 'Study(Scholarship Grants)', 'Official time', '2015-12-02 14:10:57', '2015-12-02 14:12:27', '2015-12-02 22:12:27', 'with entitlements, i.e. ', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);', ', , ', 0);
+(159, 'APPROVED', NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'mark joshua', 'abrenica', 'rivera', 'male', '5824979', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', 'OTO;', '', '', '', 'United States, Canada', 'test', '2015-12-02', '2015-12-03', 'Study(Scholarship Grants)', 'Official time', '2015-12-02 14:10:57', '2015-12-02 14:12:27', '2015-12-02 22:12:27', 'with entitlements, i.e. ', '', 'abrenicamarkjoshua@yahoo.com', 'International airfare (economy);', ', , ', 0),
+(160, 'ON PROCESS (BLGS Division Chief)', NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'test approval order', 'test approval order', '', 'male', '5824979', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', 'OTO;OB;', '', '', '', 'United States, Albania, Algeria', 'test approval order', '2016-01-19', '2016-01-21', 'Study(Scholarship Grants)', 'Official Business with Airfare,Official time', '2016-01-19 04:14:37', '2016-01-19 04:22:27', '0000-00-00 00:00:00', 'with entitlements, i.e. (a) 20% travel allowance representing meals, hotel, incidental, pursuant to OP Executive Order No. 298, s. 2004, and (b) participation fee in the amount not exceeding USD3,500.00, chargeable against the funds of that provincial government, subject to the availability thereof, and to the usual accounting and auditing rules and regulations.', '', 'abrenicamarkjoshua@yahoo.com', 'Travel allowance;', ', , ', 0);
 
 -- --------------------------------------------------------
 
@@ -4573,10 +4579,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `accountType_id`, `accountStatus`, `lastname`, `firstname`, `middlename`, `suffix`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `region`, `province`, `department_id`, `contactnumber`, `municipality`) VALUES
-(101329, 1, 'active', '', '', '', '', 'blgs', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '8YxZ7KXnPkA3RNyI4rp4x2torCx7DiIO1zGowdmfWKoxxXjbboEmN3Emqrcp', '0000-00-00 00:00:00', '2016-01-18 18:45:50', NULL, NULL, 2, '', NULL),
-(101330, 1, 'active', '', '', '', '', 'usec', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'CBaRyP5SYkz0MYRQckhLeowZFjuHZjC1i2eJaElIHO4iVGhfmCS0g1Ku1io3', '0000-00-00 00:00:00', '2016-01-18 18:42:41', NULL, NULL, 4, '', NULL),
+(101329, 1, 'active', '', '', '', '', 'blgs', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '0xP2tWOu89uRZgb2iPjfWXmYyGbnEuoHVecKa9aCj04VExehjvneYwn1yhNv', '0000-00-00 00:00:00', '2016-01-18 19:53:49', NULL, NULL, 2, '', NULL),
+(101330, 1, 'active', '', '', '', '', 'usec', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '4T7jSCUjiGPayBt7PVaxxccbSBZsbENLv3UMwb0OnjXRsalJishWaDronA0a', '0000-00-00 00:00:00', '2016-01-18 20:41:39', NULL, NULL, 4, '', NULL),
 (101331, 1, 'active', '', '', '', '', 'osec', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 5, '', NULL),
-(101332, 1, 'active', '', '', '', '', 'immigration', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'EGUZYAEKofD0UQcDlom8JZs7cUMFsOUtv43vdee7w8ziGBGhve1C8MP8AOX1', '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 6, '', NULL),
+(101332, 1, 'active', '', '', '', '', 'immigration', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'uEvp9swjP1Hapf7a9YxkJQI2qwcPzkmR1jykcHYh5xTvy5Y60ZQnIcsfJSww', '0000-00-00 00:00:00', '2016-01-18 20:41:57', NULL, NULL, 6, '', NULL),
 (101333, 0, 'not assigned', '', '', '', '', 'DILG RO-RI', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'J5FyFPDxtE6Hx4C6Ef6pCq9kMCWZpT3ocYZVjfKnWO5Hg4WsMnCGxs3eHvG6', '0000-00-00 00:00:00', '2016-01-18 18:45:35', 'REGION I (ILOCOS REGION)', NULL, 3, '', NULL),
 (101334, 0, 'not assigned', '', '', '', '', 'DILG RO-RII', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION II (CAGAYAN VALLEY)', NULL, 3, '', NULL),
 (101335, 0, 'not assigned', '', '', '', '', 'DILG RO-RIII', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'xvt0rdNOzZdaPlBw5EWCOEbCcRgIC1Sv1oVFBlhaDm3ePb5xsdcjbYYPC91i', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION III (CENTRAL LUZON)', NULL, 3, '', NULL),
@@ -4594,7 +4600,7 @@ INSERT INTO `users` (`id`, `accountType_id`, `accountStatus`, `lastname`, `first
 (101347, 0, 'not assigned', '', '', '', '', 'DILG RO-CAR', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'CORDILLERA ADMINISTRATIVE REGION (CAR)', NULL, 3, '', NULL),
 (101348, 0, 'not assigned', '', '', '', '', 'DILG RO-ARMM', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'AUTONOMOUS REGION IN MUSLIM MINDANAO (ARMM)', NULL, 3, '', NULL),
 (101349, 0, 'not assigned', '', '', '', '', 'DILG RO-RXIII', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', NULL, 3, '', NULL),
-(101350, 0, 'not assigned', '', '', '', '', 'lgu-ILOCOS NORTE', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'CbqatxF97ZRNj4i0lmBXM0hW8VtqhubYOd7njYZXuYpETChm7rSzgBEKwHQ5', '0000-00-00 00:00:00', '2016-01-18 18:59:29', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 1, '', NULL),
+(101350, 0, 'not assigned', '', '', '', '', 'lgu-ILOCOS NORTE', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '0BiJNEfCh5NFtWon9WbS9YTqnjJurmmPdR2GtOl6mRHnttAUFBBb6cVNXI4Y', '0000-00-00 00:00:00', '2016-01-18 20:14:51', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 1, '', NULL),
 (101351, 0, 'not assigned', '', '', '', '', 'dilg po-ILOCOS NORTE', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'CdmbDjabHMUmQRS8TqfpPcnDUldPznwXsX0GDdFL5NPKyHguEYceMWw2Jmt0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 7, '', NULL),
 (101352, 0, 'not assigned', '', '', '', '', 'lgu-ILOCOS SUR', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION I (ILOCOS REGION)', 'ILOCOS SUR', 1, '', NULL),
 (101353, 0, 'not assigned', '', '', '', '', 'dilg po-ILOCOS SUR', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION I (ILOCOS REGION)', 'ILOCOS SUR', 7, '', NULL),
@@ -6422,12 +6428,12 @@ INSERT INTO `users` (`id`, `accountType_id`, `accountStatus`, `lastname`, `first
 (103166, 0, 'not assigned', '', '', '', '', 'lgu-LORETO', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', 'DINAGAT ISLANDS', 1, '', 'LORETO'),
 (103167, 0, 'not assigned', '', '', '', '', 'lgu-SAN JOSE (Capital)', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', 'DINAGAT ISLANDS', 1, '', 'SAN JOSE (Capital)'),
 (103168, 0, 'not assigned', '', '', '', '', 'lgu-TUBAJON', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', 'DINAGAT ISLANDS', 1, '', 'TUBAJON'),
-(103172, 4, 'active', '', '', '', '', 'admin1', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'VJGwPuYuR34eTqUA4kNmfFd2V4RkDGTpX3rcwGnA92JBJpn4VtnVNFJIoi7l', '0000-00-00 00:00:00', '2016-01-18 19:02:46', NULL, NULL, 2, '', NULL),
-(103173, 5, 'active', '', '', '', '', 'admin2', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'U9UNZ3dogrDec5alabmvazAB6g4XUfGrH34q5vnwG520l7hiCwrk4co7UKtj', '0000-00-00 00:00:00', '2016-01-18 19:03:33', NULL, NULL, 2, '', NULL),
+(103172, 4, 'active', '', '', '', '', 'admin1', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'NMWFAIJiOOBa9XG7mIE5OWVOZJ6Tj7kov91HRiq7a0oBwpAcf9ZWQCn79H4D', '0000-00-00 00:00:00', '2016-01-18 20:18:37', NULL, NULL, 2, '', NULL),
+(103173, 5, 'active', '', '', '', '', 'admin2', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'R3YcoznboZRD45HsBiz6k6VcrvuaY5MjVauvXy88R3yx7IYD1KtqwxKZc8cs', '0000-00-00 00:00:00', '2016-01-18 20:19:03', NULL, NULL, 2, '', NULL),
 (103174, 6, 'active', '', '', '', '', 'admin3', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 2, '', NULL),
-(103175, 7, 'active', '', '', '', '', 'admin4', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 2, '', NULL),
-(103176, 8, 'active', '', '', '', '', 'admin5', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'smYiWezaM7dstaMEF5cW24O7qfz1GJYth5UC23HSJbyE5W05WAA2qzgsn48m', '0000-00-00 00:00:00', '2016-01-18 19:04:29', NULL, NULL, 2, '', NULL),
-(103177, 9, 'active', '', '', '', '', 'admin6', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 2, '', NULL);
+(103175, 7, 'active', '', '', '', '', 'admin4', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'YgMwnXXT3N1nCHAmsRbouqe0Qp2SFcFb2542Uh2dAEwTebVRjmInKYBfcAxn', '0000-00-00 00:00:00', '2016-01-18 19:49:06', NULL, NULL, 2, '', NULL),
+(103176, 8, 'active', '', '', '', '', 'admin5', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'W6rJCygtmqEuZqCfQ3X3JmZsHaPTCTeaAi90Gn5EbekOaXcpi5XN46WueaeI', '0000-00-00 00:00:00', '2016-01-18 20:22:32', NULL, NULL, 2, '', NULL),
+(103177, 9, 'active', '', '', '', '', 'admin6', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '3p2yFcVsotUIjHZ5XHJ5xGV5Kz786Z0o8GKAUFOCvJnbZq2zS5WAv7x7gggi', '0000-00-00 00:00:00', '2016-01-18 20:41:27', NULL, NULL, 2, '', NULL);
 
 --
 -- Constraints for dumped tables
@@ -6443,6 +6449,7 @@ ALTER TABLE `accountaccessiblelinks`
 -- Constraints for table `orderofapproval`
 --
 ALTER TABLE `orderofapproval`
+  ADD CONSTRAINT `orderofapproval_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `statuscode` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orderofapproval_ibfk_1` FOREIGN KEY (`department_id`) REFERENCES `department` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orderofapproval_ibfk_2` FOREIGN KEY (`accounttype_id`) REFERENCES `accounttype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
