@@ -228,12 +228,12 @@ class HomeController extends Controller{
 		$this->data['previousForm'] = $this->determinePreviousForm($id);
 		
 		$travelApplication = travelApplication::find($id);
-		if (trim($travelApplication->applicationstatus) == "ON PROCESS (BLGS)") {
+		//TODO: assure order of approval
 			$update = [];
 			
 			$update['applicationstatus'] = "ON PROCESS USEC";
 			$travelApplication->update($update);
-		}
+		
 		
 
 		return redirect("/")->with('Affirm', 'Successfully forwarded to Usec');
@@ -244,12 +244,12 @@ class HomeController extends Controller{
 		$this->data['previousForm'] = $this->determinePreviousForm($id);
 		
 		$travelApplication = travelApplication::find($id);
-		if (trim($travelApplication->applicationstatus) == "ON PROCESS (BLGS)") {
+		
 			$update = [];
 			
 			$update['applicationstatus'] = "ON PROCESS OSEC";
 			$travelApplication->update($update);
-		}
+		
 		
 
 		return redirect("/")->with('Affirm', 'Successfully forwarded to Usec');
@@ -989,11 +989,12 @@ class HomeController extends Controller{
 		return ($return) ? $return->id : "#";
 	}
 	public function getEdit($id){
+
 		$applicationForm = travelApplication::find($id);
 		$statusMatch = [];
 		if(Auth::user()->department_id == 1 || Auth::user()->department_id == 3){
 			return "Your account is not permitted to see this record";
-		}
+		} 
 		if($applicationForm->applicationstatus == "APPROVED" || $applicationForm->applicationstatus == "ON PROCESS USEC" || $applicationForm->applicationstatus == "ON PROCESS OSEC"){
 			return redirect('/home');
 		}
