@@ -77,7 +77,23 @@ class HomeController extends Controller{
 			case 2:
 				//blgs
 				//see only 'ON PROCESS (BLGS)' for correcting/giving remarks
-				$matchThese["applicationstatus"] = "ON PROCESS (BLGS)";
+				switch(Auth::user()->accountType_id){
+					case 4:
+					case 5:
+					case 6:
+					case 7:
+					$matchThese["applicationstatus_id"] = 1;
+					break;
+
+					case 8:
+					$matchThese["applicationstatus_id"] = 2;
+					break;
+
+					case 9:
+					$matchThese["applicationstatus_id"] = 3;
+					break;
+				}
+				
 			break;
 			case 3:
 				//DILGRO
@@ -206,32 +222,29 @@ class HomeController extends Controller{
 	//FOR USEC
 	public function postApproveTravel($id){
 		
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] = $this->determinePreviousForm($id);
 		
 		$travelApplication = travelApplication::find($id);
-		if (trim($travelApplication->applicationstatus) == "ON PROCESS USEC") {
+		
 			$update = [];
 			
-			$update['applicationstatus'] = "APPROVED";
+			$update['applicationstatus_id'] = 6;
 			date_default_timezone_set("Asia/Manila");
 			$update['dateapproved'] = date("Y-m-d H:i:s");
 			$travelApplication->update($update);
-		}
+		
 		
 
 		return back();
 	}
 	public function postSendToUsec($id){
 		
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] = $this->determinePreviousForm($id);
+	
 		
 		$travelApplication = travelApplication::find($id);
 		//TODO: assure order of approval
 			$update = [];
 			
-			$update['applicationstatus'] = "ON PROCESS USEC";
+			$update['applicationstatus_id'] = 4;
 			$travelApplication->update($update);
 		
 		
@@ -240,14 +253,12 @@ class HomeController extends Controller{
 	}
 	public function postSendToOsec($id){
 		
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] = $this->determinePreviousForm($id);
 		
 		$travelApplication = travelApplication::find($id);
 		
 			$update = [];
 			
-			$update['applicationstatus'] = "ON PROCESS OSEC";
+			$update['applicationstatus_id'] = 5;
 			$travelApplication->update($update);
 		
 		
@@ -256,18 +267,16 @@ class HomeController extends Controller{
 	}
 	public function postInitialToUsec($id){
 
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] = $this->determinePreviousForm($id);
 		
 		$travelApplication = travelApplication::find($id);
-		if (trim($travelApplication->applicationstatus) == "ON PROCESS (BLGS)") {
+		
 			$update = [];
 			
-			$update['applicationstatus'] = "ON PROCESS USEC";
+			$update['applicationstatus_id'] = 4;
 			$update['InitialToUsec'] = true;
 			
 			$travelApplication->update($update);
-		}
+		
 		
 
 		return redirect("/")->with('Affirm', 'Successfully forwarded to Usec with Initials');	
@@ -279,8 +288,7 @@ class HomeController extends Controller{
 			return "Your account is not permitted to see this record";
 		}
 		$this->data['post'] = [];
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] =  $this->determinePreviousForm($id);
+		
 		$this->data['applicationForm'] = $applicationForm;
 		$this->data['region'] = $applicationForm->region;
 		$this->data['province'] = $applicationForm->province;
@@ -407,9 +415,7 @@ class HomeController extends Controller{
 			return "Your account is not permitted to see this record";
 		}
 		$this->data['applicationForm'] = $applicationForm;
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] = $this->determinePreviousForm($id);
-
+		
 		
 		$this->data['post'] = [
 			
@@ -541,9 +547,7 @@ class HomeController extends Controller{
 			return "Your account is not permitted to see this record";
 		}
 		$this->data['applicationForm'] = $applicationForm;
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] = $this->determinePreviousForm($id);
-
+		
 		$travelRequested = "";
 		if(isset($_POST['OfficialBusinesswithAirfare']) == true && $_POST['OfficialBusinesswithAirfare'] == true){
 			$travelRequested .= "Official Business with Airfare,";
@@ -747,6 +751,19 @@ class HomeController extends Controller{
 
 		}
 		
+		
+		if(isset($_POST['btnSendToBLGSStaff'])){
+			save($applicationForm, $request, $this->data['post']);
+			
+			$travelApplication =$applicationForm;
+		
+				
+				$update['applicationstatus_id'] = 1;
+				
+				$travelApplication->update($update);
+			return redirect("/")->with('Affirm', 'Successfully forwarded to BLGS Staff');	
+
+		}
 		if(isset($_POST['btnSendToBLGSDivisionChief'])){
 			save($applicationForm, $request, $this->data['post']);
 			
@@ -754,25 +771,13 @@ class HomeController extends Controller{
 			
 				$update = [];
 				
-				$update['applicationstatus'] = "ON PROCESS (BLGS Division Chief)";
+				$update['applicationstatus_id'] = 2;
 				
 				$travelApplication->update($update);
 			
 			
 
 			return redirect("/")->with('Affirm', 'Successfully forwarded to BLGS Division Chief');	
-
-		}
-		if(isset($_POST['btnSendToBLGSStaff'])){
-			save($applicationForm, $request, $this->data['post']);
-			
-			$travelApplication =$applicationForm;
-		
-				
-				$update['applicationstatus'] = "ON PROCESS (BLGS Staff)";
-				
-				$travelApplication->update($update);
-			return redirect("/")->with('Affirm', 'Successfully forwarded to BLGS Staff');	
 
 		}
 		if(isset($_POST['btnSendToBLGSDirector'])){
@@ -782,7 +787,7 @@ class HomeController extends Controller{
 			
 				$update = [];
 				
-				$update['applicationstatus'] = "ON PROCESS (BLGS Division Chief)";
+				$update['applicationstatus_id'] = 3;
 				
 				$travelApplication->update($update);
 			
@@ -916,78 +921,78 @@ class HomeController extends Controller{
 		$return = User::where('id', '>', $id)->first();
 		return ($return) ? $return->id : "#";	
 	}
-	public function determinePreviousForm($id){
-		$matchThese = [];
+	// public function determinePreviousForm($id){
+	// 	$matchThese = [];
 
-		switch(Auth::user()->department_id){
-			case 1:
-				//lgu
+	// 	switch(Auth::user()->department_id){
+	// 		case 1:
+	// 			//lgu
 				
-			break;
-			case 2:
-				//blgs
+	// 		break;
+	// 		case 2:
+	// 			//blgs
 
-				$matchThese["applicationstatus"] = "ON PROCESS (BLGS)";
-			break;
-			case 3:
-				//DILGRO
+	// 			$matchThese["applicationstatus"] = "ON PROCESS (BLGS)";
+	// 		break;
+	// 		case 3:
+	// 			//DILGRO
 
 
-				break;
-			case 4:
-				//USEC                                    
-				$matchThese["applicationstatus"] = "ON PROCESS USEC";
-				break;
-			case 5:
-				//OSEC
-				$matchThese["applicationstatus"] = "ON PROCESS OSEC";
-				$matchThese["position"] = "GOVERNOR";
-				break;
-			case 6:
-			//IMMIGRATION
+	// 			break;
+	// 		case 4:
+	// 			//USEC                                    
+	// 			$matchThese["applicationstatus"] = "ON PROCESS USEC";
+	// 			break;
+	// 		case 5:
+	// 			//OSEC
+	// 			$matchThese["applicationstatus"] = "ON PROCESS OSEC";
+	// 			$matchThese["position"] = "GOVERNOR";
+	// 			break;
+	// 		case 6:
+	// 		//IMMIGRATION
 			
-			$matchThese["applicationstatus"] = "APPROVED";
-			break;
-		}
+	// 		$matchThese["applicationstatus"] = "APPROVED";
+	// 		break;
+	// 	}
 
-		$return = travelApplication::where($matchThese)->where('id', '>', $id)->first();
-		return ($return) ? $return->id : "#";
-	}
-	public function determineNextForm($id){
-		$matchThese = [];
+	// 	$return = travelApplication::where($matchThese)->where('id', '>', $id)->first();
+	// 	return ($return) ? $return->id : "#";
+	// }
+	// public function determineNextForm($id){
+	// 	$matchThese = [];
 
-		switch(Auth::user()->department_id){
-			case 1:
-				//lgu
+	// 	switch(Auth::user()->department_id){
+	// 		case 1:
+	// 			//lgu
 				
-			break;
-			case 2:
-				//blgs
+	// 		break;
+	// 		case 2:
+	// 			//blgs
 
-				$matchThese["applicationstatus"] = "ON PROCESS (BLGS)";
-			break;
-			case 3:
-				//DILGRO
+	// 			$matchThese["applicationstatus_id"] = "ON PROCESS (BLGS)";
+	// 		break;
+	// 		case 3:
+	// 			//DILGRO
 
-				break;
-			case 4:
-				//USEC                                    
-				$matchThese["applicationstatus"] = "ON PROCESS USEC";
-				break;
-			case 5:
-				//OSEC
-				$matchThese["applicationstatus"] = "ON PROCESS OSEC";
-				$matchThese["position"] = "GOVERNOR";
-				break;
-			case 6:
-			//IMMIGRATION
-			$matchThese["applicationstatus"] = "APPROVED";
-			break;
-		}
+	// 			break;
+	// 		case 4:
+	// 			//USEC                                    
+	// 			$matchThese["applicationstatus_id"] = 4;
+	// 			break;
+	// 		case 5:
+	// 			//OSEC
+	// 			$matchThese["applicationstatus_id"] = 5;
+	// 			$matchThese["position"] = "GOVERNOR";
+	// 			break;
+	// 		case 6:
+	// 		//IMMIGRATION
+	// 		$matchThese["applicationstatus_id"] = 6;
+	// 		break;
+	// 	}
 
-		$return = travelApplication::where($matchThese)->orderBy('id', 'desc')->where('id', '<', $id)->first();
-		return ($return) ? $return->id : "#";
-	}
+	// 	$return = travelApplication::where($matchThese)->orderBy('id', 'desc')->where('id', '<', $id)->first();
+	// 	return ($return) ? $return->id : "#";
+	// }
 	public function getEdit($id){
 
 		$applicationForm = travelApplication::find($id);
@@ -995,12 +1000,36 @@ class HomeController extends Controller{
 		if(Auth::user()->department_id == 1 || Auth::user()->department_id == 3){
 			return "Your account is not permitted to see this record";
 		} 
-		if($applicationForm->applicationstatus == "APPROVED" || $applicationForm->applicationstatus == "ON PROCESS USEC" || $applicationForm->applicationstatus == "ON PROCESS OSEC"){
+		if($applicationForm->applicationstatus_id == 6 || $applicationForm->applicationstatus_id == 4 || $applicationForm->applicationstatus_id == 5){
 			return redirect('/home');
 		}
+		if(Auth::user()->department_id == 2){
+			switch(Auth::user()->accountType_id){
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				if($applicationForm->applicationstatus_id != 1){
+					return redirect('/home');
+				}
+				break;
+
+				case 8:
+				if($applicationForm->applicationstatus_id != 2){
+					return redirect('/home');
+				}
+				break;
+
+				case 9:
+				if($applicationForm->applicationstatus_id != 3){
+					return redirect('/home');
+				}
+				break;
+			}
+		}
+		
 		$this->data['post'] = [];
-		$this->data['nextForm'] = $this->determineNextForm($id);
-		$this->data['previousForm'] =  $this->determinePreviousForm($id);
+		
 		$this->data['applicationForm'] = $applicationForm;
 		$this->data['region'] = $applicationForm->region;
 		$this->data['province'] = $applicationForm->province;
@@ -1182,7 +1211,7 @@ class HomeController extends Controller{
 		}
 		$countries = rtrim($countries, ', ');
 		$insert = [
-		'applicationstatus' => "ON PROCESS (BLGS Staff)",
+		'applicationstatus_id' => 1,
 		'remarks' => "",
 		'region' => trim(Auth::user()->region),
 		'province' => trim($_POST['selectprovince']) ,
@@ -1321,7 +1350,7 @@ class HomeController extends Controller{
 			$this->data['title'] = "Approved travel applications";	
 			$matchThese = [];
 			
-			$travelApplications = travelApplication::where('applicationstatus', 'APPROVED')->orderBy('updated_at', 'desc')->get();
+			$travelApplications = travelApplication::where('applicationstatus_id', 6)->orderBy('updated_at', 'desc')->get();
 
 			$this->data['travelApplications'] = $travelApplications;
 			return view('dashboard', $this->data);
@@ -1352,52 +1381,52 @@ class HomeController extends Controller{
 		//if immigration...
 		if(Auth::user()->department_id == 6){
 			$this->data['title'] = "Approved travel applications";	
-		$matchThese = [];
-		
-		$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
+			$matchThese = [];
+			
+			$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
 
-		$this->data['travelApplications'] = $travelApplications;
-		return view('dashboard', $this->data);
+			$this->data['travelApplications'] = $travelApplications;
+			return view('dashboard', $this->data);
 		} else{
 			$matchThese = [];
-		if($request->has('province')) {
-			$matchThese["province"]= $request->province;
-		} else{
-			if(Auth::user()->province){
-				$matchThese["province"]= Auth::user()->province;
+			if($request->has('province')) {
+				$matchThese["province"]= $request->province;
+			} else{
+				if(Auth::user()->province){
+					$matchThese["province"]= Auth::user()->province;
+				}
 			}
-		}
-		if($request->has('region')) {
-			$matchThese["region"]= $request->region;
-		} else{
-			if(Auth::user()->region){
-				$matchThese["region"]= Auth::user()->region;
+			if($request->has('region')) {
+				$matchThese["region"]= $request->region;
+			} else{
+				if(Auth::user()->region){
+					$matchThese["region"]= Auth::user()->region;
+				}
 			}
-		}
-		if($request->has('municipality')) {
-			$matchThese["municipality"]= $request->municipality;
-		}else{
-			if(Auth::user()->municipality){
-				$matchThese["municipality"]= Auth::user()->municipality;
+			if($request->has('municipality')) {
+				$matchThese["municipality"]= $request->municipality;
+			}else{
+				if(Auth::user()->municipality){
+					$matchThese["municipality"]= Auth::user()->municipality;
+				}
 			}
-		}
-		if($request->has('travelstatus')){
-			$matchThese["applicationstatus"]= $request->travelstatus;
-		}
+			if($request->has('travelstatus')){
+				$matchThese["applicationstatus_id"]= $request->travelstatus;
+			}
 		
-		if($_POST['dateFrom'] != "" && $_POST['dateTo'] != ""){
-			$dateFrom = new DateTime($_POST['dateFrom']);
-			$dateTo = new DateTime($_POST['dateTo']);
-			$dateFromString = $dateFrom->format('Y-m-d');
-			$dateToString = $dateTo->format('Y-m-d') . " 23:59:00";
+			if($_POST['dateFrom'] != "" && $_POST['dateTo'] != ""){
+				$dateFrom = new DateTime($_POST['dateFrom']);
+				$dateTo = new DateTime($_POST['dateTo']);
+				$dateFromString = $dateFrom->format('Y-m-d');
+				$dateToString = $dateTo->format('Y-m-d') . " 23:59:00";
 
-			$travelApplications = travelApplication::where($matchThese)->where('created_at', '<=', $dateToString)->where('created_at', '>=', $dateFromString)->orderBy('updated_at')->orderBy('updated_at', 'desc')->get();
-		}else{
-			$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
-		}
-		$this->data['travelApplications'] = $travelApplications;
-		return view('dashboard', $this->data);
-	
+				$travelApplications = travelApplication::where($matchThese)->where('created_at', '<=', $dateToString)->where('created_at', '>=', $dateFromString)->orderBy('updated_at')->orderBy('updated_at', 'desc')->get();
+			}else{
+				$travelApplications = travelApplication::where($matchThese)->orderBy('updated_at', 'desc')->get();
+			}
+			$this->data['travelApplications'] = $travelApplications;
+			return view('dashboard', $this->data);
+		
 		}
 	}
 	public function getApprovedTA(){

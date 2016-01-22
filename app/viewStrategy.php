@@ -76,14 +76,14 @@ class viewStrategy{
 		$btnValue = "";
 		$onclick = "";
 		
-		if($application->applicationstatus != "APPROVED"){
+		if($application->applicationstatuscode() != "APPROVED"){
 			$onclick = "";
 			switch($department){
 
 				case "DILG PO":
 				case "DILG RO":
 				case "LGU":
-						if($application->applicationstatus == "ON PROCESS USEC"  || $application->applicationstatus == "ON PROCESS OSEC"){
+						if($application->applicationstatus_id == 4  || $application->applicationstatus_id == 5){
 							return "";
 						} else{
 							//show drop button
@@ -96,31 +96,61 @@ class viewStrategy{
 							}
 
 						}
-					
-					//else, don't show 'drop'
-				
+					$form .= "<form  action = '$action/$application->id' method = 'post'>";
+					$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
 				break;
 				case "BLGS":
-					if($application->applicationstatus == "ON PROCESS USEC"  || $application->applicationstatus == "ON PROCESS OSEC"){
+					if($application->applicationstatus_id == 4  || $application->applicationstatus_id == 5){
 
 						return "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px; width: 257px; height: 54px;'>".$application->remarks."</textarea>";
 					} else{
-						//show drop button
-						$action = 'edit';
-						$btnName = 'btnedit';
-						$btnValue = 'edit';
+						switch($application->applicationstatus_id){
+							case 1:
+								if(Auth::user()->accountType_id == 4  || Auth::user()->accountType_id == 5  || Auth::user()->accountType_id == 6  || Auth::user()->accountType_id == 7){
+									$action = 'edit';
+									$btnName = 'btnedit';
+									$btnValue = 'edit';
+									$form .= "<form  action = '$action/$application->id' method = 'post'>";
+									$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
+								}
+							break;
+
+							case 2:
+								if(Auth::user()->accountType_id == 8){
+									$action = 'edit';
+									$btnName = 'btnedit';
+									$btnValue = 'edit';
+									$form .= "<form  action = '$action/$application->id' method = 'post'>";
+									$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
+								}
+							break;
+
+							case 3:
+								if(Auth::user()->accountType_id == 9){
+									$action = 'edit';
+									$btnName = 'btnedit';
+									$btnValue = 'edit';
+									$form .= "<form  action = '$action/$application->id' method = 'post'>";
+									$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
+								}
+							break;
+
+						}
+						
 					}
 
 				break;
 
 				case "OSEC":
 				case "USEC":
-					if($application->applicationstatus == "ON PROCESS USEC" || $application->applicationstatus == "ON PROCESS OSEC"){
+					if($application->applicationstatus_id == 4 || $application->applicationstatus_id == 5){
 						//show drop button
 							$action = 'approve';
 							$btnName = 'btnApprove';
 							$btnValue = 'approve';
 							$onclick = "onclick=\"return confirm('Are you sure you want to approve this document?');\"";
+							$form .= "<form  action = '$action/$application->id' method = 'post'>";
+							$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
 							
 					} else{
 						return "";
@@ -132,14 +162,13 @@ class viewStrategy{
 					break;
 			}
 			
-			$form .= "<form style = 'float:left;' action = '$action/$application->id' method = 'post'>";
-			$form .= "<input type = 'submit' name = '$btnName' value = '$btnValue' $onclick/>";
+			
 			$form .= "<input type='hidden' name='_token' value='" . csrf_token() ."' />";
 			$form .= "<input type = 'hidden' name = 'travelApplication_id' value = '$application->id' />";
           
 			$form .= "</form>";
-			if($application->applicationstatus != "APPROVED"){
-				$form .= "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px; float: left; width: 257px; height: 54px;'>".$application->remarks."</textarea>";
+			if($application->applicationstatus_id != 6){
+				$form .= "<textarea id = 'remarks".$application->id."' onchange='saveRemarks".$application->id."(this);' style = 'padding: 0px; margin: 0px;  width: 257px; height: 54px;'>".$application->remarks."</textarea>";
 			}
 			
 		}
@@ -349,7 +378,7 @@ class viewStrategy{
 		foreach($statusCodes as $statusCode){
 			$selected = "";
 			if(isset($_POST['travelstatus'])){
-				if($_POST['travelstatus'] == $statusCode->statusCode){
+				if($_POST['travelstatus'] == $statusCode->id){
 					$selected = " selected ";
 				}
 			}
@@ -361,7 +390,7 @@ class viewStrategy{
 					continue;
 				}
 			}
-			$output .= "<option $selected value = '$statusCode->statusCode'>$statusCode->statusCode</option>";
+			$output .= "<option $selected value = '$statusCode->id'>$statusCode->statusCode</option>";
 		}
 		switch($department){
 			case "IMMIGRATION":

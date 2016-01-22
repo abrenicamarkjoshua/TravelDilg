@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 class travelApplication extends Model{
 	protected $table = 'travelapplication';
 	 protected $fillable = [
-	 'applicationstatus',
+	 'applicationstatus_id',
 	 'remarks',
 	 'region',
 	 'province',
@@ -39,5 +39,13 @@ class travelApplication extends Model{
 	 'encodedBy',
 	 'InitialToUsec'
 	 ];
+	 public function applicationstatuscode(){
+	 	if($this->applicationstatus_id == null){
+	 		return;
+	 	} else{
+	 		$output = statusCode::find($this->applicationstatus_id);
+	 		return $output->statusCode;
+	 	}
+	 }
 }
 ?>

@@ -142,7 +142,7 @@ date_default_timezone_set("Asia/Manila");
                     
                   <tr  <?php if($i % 2 == 0) {echo 'class="pure-table-odd"';} else{echo 'class="pure-table-even"';} ;?>>
                     <td>{{$travelApplications[$i]->id}}</td>
-                    <td>{{$travelApplications[$i]->applicationstatus}}</td>
+                    <td>{{$travelApplications[$i]->applicationstatuscode()}}</td>
                     @if($department != "LGU")
                       @if($department != "DILG RO")
                       <td>{{$travelApplications[$i]->region}}</td>
@@ -175,7 +175,7 @@ date_default_timezone_set("Asia/Manila");
 
                       </form>
                     </td>
-                    @if($travelApplications[$i]->applicationstatus != "APPROVED")
+                    @if($travelApplications[$i]->applicationstatuscode() != "APPROVED")
                   <script>
 function saveRemarks{!! $travelApplications[$i]->id !!}(){
     
