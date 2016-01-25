@@ -628,18 +628,13 @@ class HomeController extends Controller{
 		if(isset($_POST['entitlementrequestedOthers'])){
 			$applicationEntitlements .= "others;";
 		}
+		$administrativeRequirement = "";
+		if(isset($_POST['administrativeRequirements'])){
+			$administrativeRequirement = $_POST['administrativeRequirements'];
+		}
 
-
-		$travelType = "";
-		if(isset($_POST['officialTime'])){
-			$travelType .= 'OTO;';
-		}
-		if(isset($_POST['OfficialBusinesswithAirfare'])){
-			$travelType .= 'OB;';
-		}
-		if(isset($_POST['OfficialLeaveOfAbsence'])){
-			$travelType .= 'OLA;';
-		}
+		$travelType = (isset($_POST['travelType'])) ? $_POST['travelType'] : "";
+		
 		
 		$this->data['post'] = [
 			
@@ -666,7 +661,8 @@ class HomeController extends Controller{
 			'flightinfo_travelRequested'=> $travelRequested,
 			
 			'applyEntitlements' => $applicationEntitlements,
-			'entitlements' => $entitlements
+			'entitlements' => $entitlements,
+			'administrativeRequirement' => $administrativeRequirement
 		];
 		// $this->data['post']['region'] = (isset($_POST['selectregion'])) ?  $_POST['selectregion'] :"" ;
 		// $this->data['post']['province'] = (isset($_POST['selectprovince'])) ?  $_POST['selectprovince'] :"" ;
@@ -1203,7 +1199,13 @@ class HomeController extends Controller{
 		if(isset($_POST['OfficialLeaveOfAbsence'])){
 			$travelType .= 'OLA;';
 		}
-
+		if(isset($_POST['travelType'])){
+			$travelType = $_POST['travelType'];
+		}
+		$administrativeRequirement = "";
+		if(isset($_POST['administrativeRequirements'])){
+			$administrativeRequirement = $_POST['administrativeRequirements'];
+		}
 		$municipality = (isset($_POST['municipality'])) ? $_POST['municipality'] : "";
 		$countries = "";
 		foreach($_POST['country'] as $country){
@@ -1238,7 +1240,8 @@ class HomeController extends Controller{
 		'created_at' => date("Y-m-d H:i:s"),
 		'applyEntitlements' => $applicationEntitlements,
 		'email' => $_POST['email'],
-		'encodedBy' => Auth::user()->lastname . ", " . Auth::user()->firstname . ", " . Auth::user()->middlename
+		'encodedBy' => Auth::user()->lastname . ", " . Auth::user()->firstname . ", " . Auth::user()->middlename,
+		'administrativeRequirement' => $administrativeRequirement
 		];
 		//todo: add some back-end validation
 

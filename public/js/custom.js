@@ -1,3 +1,64 @@
+function populateTravelType(){
+  var output = "";
+  switch($("#natureOfTravelRequested").val()){
+    case "Study(Scholarship Grants)": 
+      output = "<option value = '' >please select</option><option value = 'OTO'>OTO (Official time only)</option><option value = 'OB'>OB (Official Business)</option>";
+    break;
+
+    case "Non study":
+      output = "<option value = '' >please select</option><option value = 'OTO'>OTO (Official time only)</option><option value = 'OB'>OB (Official Business)</option>";
+    break;
+
+    case "Personal":
+      output = "<option value = ''>please select</option><option value = 'OLA'>OLA (Official leave of absence)</option>";
+    break;
+  }
+   $("#travelType").html(output);
+ 
+}
+function populateEntitlementsRequested(){
+var output = "";
+ switch($("#natureOfTravelRequested").val()){
+    case "Study(Scholarship Grants)":
+      switch($("#travelType").val()){
+        case "OTO":
+           output = "<input type = 'checkbox' name = 'entitlementrequestedTravelAllowance' value = 'travel allowance'>Travel allowance</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' value = 'international airfaire (economy)'>International airfare (economy)</input>&nbsp&nbsp&nbsp<input {{$checkParticipationFee}} type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' value = 'registration fee'>Registration fee / participation fee</input><input {{$checkOthers}} type = 'checkbox' name = 'entitlementrequestedOthers' value = 'Others'>Others</input>";
+        break;
+        case "OB":
+          output = "<input type = 'checkbox' name = 'entitlementrequestedTravelAllowance' value = 'travel allowance'>Travel allowance</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' value = 'international airfaire (economy)'>International airfare (economy)</input>&nbsp&nbsp&nbsp<input {{$checkParticipationFee}} type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' value = 'registration fee'>Registration fee / participation fee</input><input {{$checkOthers}} type = 'checkbox' name = 'entitlementrequestedOthers' value = 'Others'>Others</input>";
+        break;
+
+        
+      } 
+    break;
+    case "Non study":
+
+      switch($("#travelType").val()){
+          case "OTO":
+            output = "<label>choose only one for administrative requirements:</label> <select name = 'administrativeRequirements'><option value = ''>Please select</option><option value ='Attendance to training, seminar and workshop'>Attendance to training, seminar and workshop</option><option value = 'Attendance to an event that promotes local government technical exchange and cooperation or sister-city/town twinning relations'>Attendance to an event that promotes local government technical exchange and cooperation or sister-city/town twinning relations</option><option value = 'LGUs initiated study cum observation tour'>LGUs initiated study cum observation tour</option><option value = 'national government agencies organized study cum observation tour'>national government agencies organized study cum observation tour</option></select>";
+          break;
+          case "OB":
+          output = "<label>choose only one for administrative requirements:</label> <select name = 'administrativeRequirements'><option value = ''>Please select</option><option value ='Attendance to training, seminar and workshop'>Attendance to training, seminar and workshop</option><option value = 'Attendance to an event that promotes local government technical exchange and cooperation or sister-city/town twinning relations'>Attendance to an event that promotes local government technical exchange and cooperation or sister-city/town twinning relations</option><option value = 'LGUs initiated study cum observation tour'>LGUs initiated study cum observation tour</option><option value = 'national government agencies organized study cum observation tour'>national government agencies organized study cum observation tour</option></select>";
+          break;
+
+        } 
+    break;
+
+    case "Personal":
+      switch($("#travelType").val()){
+          case "OLA":
+          output = "<label>choose only one for Official leave of absence:</label> <select name = 'administrativeRequirements'><option value = ''>Please select</option><option value ='Governor, mayor of highly urbanized cities and independent component cities'>Governor, mayor of highly urbanized cities and independent component cities</option><option value = 'Other Elected Officials and LGU Department heads'>Other Elected Officials and LGU Department heads</option><option value = 'under suspension'>under suspension</option><option value = 'without pending case'>without pending case</option><option value = 'SL'>SL</option><option value = 'VL'>VL</option><option value = 'SPL'>SPL</option></select>";
+          break;
+      }
+    break;
+  }
+
+
+ 
+   $("#outputEntitlementsRequested").html(output);
+ 
+}
+
 
 $(function(){
     $("select#applySelectProvince").change(function(){

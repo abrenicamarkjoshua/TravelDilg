@@ -37,7 +37,8 @@ class travelApplication extends Model{
 	 'email',
 	 'applyEntitlements',
 	 'encodedBy',
-	 'InitialToUsec'
+	 'InitialToUsec',
+	 'administrativerequirement'
 	 ];
 	 public function applicationstatuscode(){
 	 	if($this->applicationstatus_id == null){

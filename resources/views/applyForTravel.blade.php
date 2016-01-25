@@ -135,7 +135,7 @@
                                       <input  class = "pure-u-11-24" autocomplete="off" required id="email" name = "email" type="email">
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
-                                      <label class= "mylabel" for="picture"><i style = "color:red">Attach only 2x2 picture</i></label>
+                                      <label class= "mylabel" for="picture"><i style = "color:red">Attach only 2x2 picture with white background</i></label>
                                         <input id = 'uploadpicture' required name = "picture" type="file" accept="image/gif, image/jpeg, image/png"></input>
                                       
                                   </div>
@@ -210,30 +210,29 @@
                                 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Nature of travel requested:</label>
-                                    
-                                    <input required type = 'radio' name = 'natureOfTravelRequested' value = 'Study(Scholarship Grants)'>Study(Scholarship Grants)</input>&nbsp&nbsp&nbsp
-                                    <input required type = 'radio' name = 'natureOfTravelRequested' value = 'Non study'>Non study</input>&nbsp&nbsp&nbsp
-                                    <input required type = 'radio' name = 'natureOfTravelRequested' value = 'Personal'>Personal</input>
-                                  
+                                    <select required name = 'natureOfTravelRequested' id = 'natureOfTravelRequested' onchange = "populateTravelType()">
+                                      <option value = ''>Please select</option>
+                                      <option value = 'Study(Scholarship Grants)'>Study(Scholarship Grants)</option>
+                                      <option value = 'Non study'>Non study</option>
+                                      <option value = 'Personal'>Personal</option>
+                                    </select>
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Travel type:</label>
-                                    <input type = 'checkbox' name = 'officialTime'>OTO (Official time only)</input>&nbsp&nbsp&nbsp
-                                    <input type = 'checkbox' name = 'OfficialBusinesswithAirfare'>OB (Official Business)</input>&nbsp&nbsp&nbsp
-                                    <input type = 'checkbox' name = 'OfficialLeaveOfAbsence'>OLA (Official leave of absence)</input>&nbsp&nbsp&nbsp
-                                  
+                                    <select name = 'travelType' required id = 'travelType' onchange = 'populateEntitlementsRequested()'>
+                                      <!-- <option value = 'OTO'>OTO (Official time only)</option>
+                                      <option value = 'OB'>OB (Official Business)</option>
+                                      <option value = 'OLA'>OLA (Official leave of absence)</option> -->
+                                    </select>
                                 </div>
 
                               
 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Entitlement requested</label>
-                                    
-                                    <input  type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' value = 'international airfaire (economy)'>International airfare (economy)</input>&nbsp&nbsp&nbsp
-                                    <input  type = 'checkbox' name = 'entitlementrequestedTravelAllowance' value = 'travel allowance'>Travel allowance</input>&nbsp&nbsp&nbsp
-                                    <input  type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' value = 'registration fee'>Registration fee / participation fee</input>
-                                    <input  type = 'checkbox' name = 'entitlementrequestedOthers' value = 'Others'>Others</input>
-                                  
+                                    <div id = 'outputEntitlementsRequested'>
+
+                                    </div>
                                 </div>
 
                                 <button type="button" class="btn btn-previous">Previous</button>
@@ -254,7 +253,7 @@
                                 <div class="form-bottom">
                                 <div class="form-group pure-u-1 pure-u-md-1-3" id = "uploaddocuments">
 
-                                    <label class = "mylabel" style = "color:red;">Updated picture (PLEASE UPLOAD 2x2 ONLY):</label>
+                                    <label class = "mylabel" style = "color:red;">Updated picture (PLEASE UPLOAD 2x2 ONLY WITH WHITE BACKGROUND):</label>
                                     <input id="uploadupdatedpicture" name = "updatedPicture" type="file" required accept="image/gif, image/jpeg">
                                     <br><br><br>
                                     <h3>pls. for Administrative requirements uploading</h3>
@@ -274,6 +273,5 @@
                         </div>
                     </div>
 
-     
      
 @stop
