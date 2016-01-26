@@ -225,16 +225,17 @@
                                       <option value = 'OLA'>OLA (Official leave of absence)</option> -->
                                     </select>
                                 </div>
-
-                              
-
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Entitlement requested</label>
                                     <div id = 'outputEntitlementsRequested'>
 
                                     </div>
                                 </div>
+                                <div class="form-group pure-u-1 pure-u-md-1-3">
+                                   <div id = 'outputUnderTravelAllowance'>
 
+                                   </div>
+                                </div>
                                 <button type="button" class="btn btn-previous">Previous</button>
                                 <button type="button" class="btn btn-next">Next</button>
                             </div>

@@ -1,3 +1,15 @@
+function displayUnderTravelAllowance(){
+  var output = "";
+  var ischecked= $("#entitlementrequestedTravelAllowance").is(':checked');
+  if(ischecked){
+    output = "<label>Under travel allowance:&nbsp&nbsp</label><input type = 'checkbox' name = 'hotelLoggingExpenses'>Hotel/Logging expenses</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'mealsExpenses'>Meals expenses</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'Incidental'>Incidental</input>&nbsp&nbsp&nbsp";
+    
+  } else{
+
+    output = "";
+  }
+   $("#outputUnderTravelAllowance").html(output);
+}
 function populateTravelType(){
   var output = "";
   switch($("#natureOfTravelRequested").val()){
@@ -22,10 +34,10 @@ var output = "";
     case "Study(Scholarship Grants)":
       switch($("#travelType").val()){
         case "OTO":
-           output = "<input type = 'checkbox' name = 'entitlementrequestedTravelAllowance' value = 'travel allowance'>Travel allowance</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' value = 'international airfaire (economy)'>International airfare (economy)</input>&nbsp&nbsp&nbsp<input {{$checkParticipationFee}} type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' value = 'registration fee'>Registration fee / participation fee</input><input {{$checkOthers}} type = 'checkbox' name = 'entitlementrequestedOthers' value = 'Others'>Others</input>";
+           output = "";
         break;
         case "OB":
-          output = "<input type = 'checkbox' name = 'entitlementrequestedTravelAllowance' value = 'travel allowance'>Travel allowance</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' value = 'international airfaire (economy)'>International airfare (economy)</input>&nbsp&nbsp&nbsp<input {{$checkParticipationFee}} type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' value = 'registration fee'>Registration fee / participation fee</input><input {{$checkOthers}} type = 'checkbox' name = 'entitlementrequestedOthers' value = 'Others'>Others</input>";
+          output = "<input type = 'checkbox' onchange = 'displayUnderTravelAllowance()' name = 'entitlementrequestedTravelAllowance' id = 'entitlementrequestedTravelAllowance' >Travel allowance</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' >International airfare (economy)</input>&nbsp&nbsp&nbsp<input {{$checkParticipationFee}} type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' >Registration fee / participation fee</input><input {{$checkOthers}} type = 'checkbox' name = 'entitlementrequestedOthers' >Others</input>";
         break;
 
         
