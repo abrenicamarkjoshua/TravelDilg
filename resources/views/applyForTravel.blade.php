@@ -135,7 +135,7 @@
                                       <input  class = "pure-u-11-24" autocomplete="off" required id="email" name = "email" type="email">
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
-                                      <label class= "mylabel" for="picture"><i style = "color:red">Attach only 2x2 picture with white background</i></label>
+                                      <label class= "mylabel" for="picture"><i style = "color:red">Attach only 2x2 picture with white background and must have latest picture within 2 months from the travel assumptions</i></label>
                                         <input id = 'uploadpicture' required name = "picture" type="file" accept="image/gif, image/jpeg, image/png"></input>
                                       
                                   </div>
@@ -157,7 +157,7 @@
                                 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="name">Country:</label>
-                                    <div id = "addcountries" style  = "margin-left:20px;">
+                                    
                                       <select class = "pure-u-11-24" required name="country[]">
                                         <option value = "">Please select country</option>                      
                                         <?php
@@ -168,9 +168,7 @@
                                           }
                                         ?>
                                       </select>
-                                    </div>
-                                    <button id = "addmorecountry" type = 'button'>Add country</button>
-
+                                      
                                 </div>
 
                                
@@ -194,6 +192,14 @@
                                     <textarea autocomplete="off" data-field="x_group_name" name="benefits" id="x_group_name" cols="40" rows="4" placeholder=""></textarea>
                                 
                                 </div>
+                                <div id = 'outputAddTravel'>
+                                 
+
+                                </div>
+                                <div class="form-group pure-u-1 pure-u-md-1-3">
+                                    <button type = 'button' id = 'btnAddTravel'>Add travel</button>
+                                </div>
+                                
                                 <!-- <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label for="password">Travel type:</label>
                                     <select required name = "travelType">

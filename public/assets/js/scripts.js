@@ -27,49 +27,49 @@ jQuery(document).ready(function() {
      
     	var parent_fieldset = $(this).parents('fieldset');
     	var next_step = true;
-     //    var email = $('#email').val();    	
-     //    if(checkEmail(email)){
-     //        $('#email').removeClass('input-error');
-     //          next_step = true;
-     //    } else{
-     //          $('#email').addClass('input-error');
-     //            alert('please input valid email');
-     //            next_step = false;
-     //    }
-     //    var dob2 = $('#birthdate').val();
-     //    var dob = new Date(dob2);
-     //    var today = new Date();
-     //    var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
-     //    if(age < 18){
-     //        alert("Error! Applicant is less than 18"); 
-     //        next_step = false;
-     //    }
-     //    var department = $('#userdepartment').val();
+        var email = $('#email').val();    	
+        if(checkEmail(email)){
+            $('#email').removeClass('input-error');
+              next_step = true;
+        } else{
+              $('#email').addClass('input-error');
+                alert('please input valid email');
+                next_step = false;
+        }
+        var dob2 = $('#birthdate').val();
+        var dob = new Date(dob2);
+        var today = new Date();
+        var age = Math.floor((today-dob) / (365.25 * 24 * 60 * 60 * 1000));
+        if(age < 18){
+            alert("Error! Applicant is less than 18"); 
+            next_step = false;
+        }
+        var department = $('#userdepartment').val();
         
-     //    if(department == "LGU" || department == "DILG RO" || department == "DILG PO"){
+        if(department == "LGU" || department == "DILG RO" || department == "DILG PO"){
             
-     //        if ($('#uploadpicture').get(0).files.length === 0) {
-     //            alert("Please upload picture.");
-     //        }
-     //    }
-    	// parent_fieldset.find('input[type="text"],input[type="number"], input[type="password"],input[type="file"],input[type="date"], select, textarea').each(function() {
+            if ($('#uploadpicture').get(0).files.length === 0) {
+                alert("Please upload picture.");
+            }
+        }
+    	parent_fieldset.find('input[type="text"],input[type="number"], input[type="password"],input[type="file"],input[type="date"], select, textarea').each(function() {
     		
-     //        if( $(this).val() == "" ) {
-     //            if($(this).is("select")){
-     //                $(this).addClass('input-error');
-     //                next_step = false;
-     //            }
-     //            if($(this).prop("required")){
-     //    			$(this).addClass('input-error');
-     //    			next_step = false;
-     //            }
+            if( $(this).val() == "" ) {
+                if($(this).is("select")){
+                    $(this).addClass('input-error');
+                    next_step = false;
+                }
+                if($(this).prop("required")){
+        			$(this).addClass('input-error');
+        			next_step = false;
+                }
                 
 
-    	// 	}
-    	// 	else {
-    	// 		$(this).removeClass('input-error');
-    	// 	}
-    	// });
+    		}
+    		else {
+    			$(this).removeClass('input-error');
+    		}
+    	});
     	
     	if( next_step ) {
     		parent_fieldset.fadeOut(400, function() {
