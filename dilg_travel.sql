@@ -1,20 +1,20 @@
 -- phpMyAdmin SQL Dump
--- version 3.5.2.2
+-- version 4.5.1
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 25, 2016 at 01:23 PM
--- Server version: 5.5.27
--- PHP Version: 5.6.11
+-- Generation Time: Feb 17, 2016 at 12:28 PM
+-- Server version: 10.1.8-MariaDB
+-- PHP Version: 5.6.14
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `dilg_travel`
@@ -26,13 +26,11 @@ SET time_zone = "+00:00";
 -- Table structure for table `accountaccessiblelinks`
 --
 
-CREATE TABLE IF NOT EXISTS `accountaccessiblelinks` (
+CREATE TABLE `accountaccessiblelinks` (
   `department_id` int(11) NOT NULL,
   `link_id` int(11) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`),
-  KEY `link_id` (`link_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `accountaccessiblelinks`
@@ -58,13 +56,12 @@ INSERT INTO `accountaccessiblelinks` (`department_id`, `link_id`, `id`) VALUES
 -- Table structure for table `accounttype`
 --
 
-CREATE TABLE IF NOT EXISTS `accounttype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `accounttype` (
+  `id` int(11) NOT NULL,
   `accountType` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `accounttype`
@@ -87,50 +84,51 @@ INSERT INTO `accounttype` (`id`, `accountType`, `created_at`, `updated_at`) VALU
 -- Table structure for table `attacheddocuments`
 --
 
-CREATE TABLE IF NOT EXISTS `attacheddocuments` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `attacheddocuments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `categories` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `location` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `travelApplication_id` bigint(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `remarks` text COLLATE utf8_unicode_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=51 ;
+  `remarks` text COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `attacheddocuments`
 --
 
 INSERT INTO `attacheddocuments` (`id`, `name`, `categories`, `location`, `travelApplication_id`, `created_at`, `updated_at`, `remarks`) VALUES
-(24, 'prayer.pdf', '', 'documents/prayer.pdf', 147, '2015-10-25 16:00:00', '2015-10-26 07:42:01', 'prayer doc remarks'),
-(25, 'bootstrap_cheatsheet.pdf', '', 'documents/bootstrap_cheatsheet.pdf', 147, '2015-10-25 16:00:00', '2015-10-26 07:42:01', 'bootstrap cheat sheet remarks'),
-(26, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 153, '2015-10-25 16:00:00', '2015-10-26 07:42:01', ''),
-(27, 'main report.pdf', '', 'documents/main report.pdf', 148, '2015-10-29 16:00:00', '2015-10-30 10:57:09', 'some remarks regarding main report'),
-(28, 'me.jpg', 'updated picture', 'documents/me.jpg', 148, '2015-10-29 16:00:00', '2015-10-30 10:57:09', ''),
-(29, 'me.jpg', 'updated picture', 'documents/me.jpg', 152, '2015-10-30 16:00:00', '2015-10-31 07:16:02', ''),
-(30, 'me.jpg', 'updated picture', 'documents/me.jpg', 92, '2015-10-30 16:00:00', '2015-10-31 07:19:28', ''),
-(31, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 155, '2015-11-04 16:00:00', '2015-11-05 07:12:55', ''),
-(32, 'prayer.pdf', '', 'documents/prayer.pdf', 155, '2015-11-04 16:00:00', '2015-11-05 07:12:55', 'try to update this prayer. upload a revision, rename getting started.pdf to prayer.pdf'),
-(33, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 156, '2015-11-04 16:00:00', '2015-11-05 07:14:06', ''),
-(34, 'prayer.pdf', '', 'documents/prayer.pdf', 156, '2015-11-04 16:00:00', '2015-11-05 07:14:06', 'try to update this prayer. upload a revision, rename getting started.pdf to prayer.pdf'),
-(35, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 157, '2015-11-04 16:00:00', '2015-11-05 07:14:24', ''),
-(36, 'prayer.pdf', '', 'documents/prayer.pdf', 157, '2015-11-04 16:00:00', '2015-11-05 07:14:24', 'try to update this prayer. upload a revision, rename getting started.pdf to prayer.pdf'),
-(37, 't-img3.jpg', 'updated picture', 'documents/t-img3.jpg', 158, '2015-11-12 16:00:00', '2015-11-13 10:46:09', ''),
-(38, 'UMLClassDiagramTutorial.pdf', '', 'documents/UMLClassDiagramTutorial.pdf', 158, '2015-11-12 16:00:00', '2015-11-13 10:46:09', 'Letter request from mayor'),
-(39, 'me.jpg', 'updated picture', 'documents/me.jpg', 159, '2015-12-01 16:00:00', '2015-12-02 14:10:58', ''),
-(40, 'saas.pdf', '', 'documents/saas.pdf', 159, '2015-12-01 16:00:00', '2015-12-02 14:10:58', 'test'),
-(41, 'me.jpg', 'updated picture', 'documents/me.jpg', 160, '2016-01-18 16:00:00', '2016-01-19 04:14:37', ''),
-(42, 'Getting Started.pdf', '', 'documents/Getting Started.pdf', 160, '2016-01-18 16:00:00', '2016-01-19 04:14:37', 'dropbox sample pdf data'),
-(43, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 161, '2016-01-21 16:00:00', '2016-01-22 03:17:48', ''),
-(44, 'limitation.pdf', '', 'documents/limitation.pdf', 161, '2016-01-21 16:00:00', '2016-01-22 03:17:48', 'test'),
-(45, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 162, '2016-01-24 16:00:00', '2016-01-25 05:12:19', ''),
-(46, 'limitation.pdf', '', 'documents/limitation.pdf', 162, '2016-01-24 16:00:00', '2016-01-25 05:12:19', 'tst'),
-(47, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 163, '2016-01-24 16:00:00', '2016-01-25 05:15:18', ''),
-(48, 'UMLClassDiagramTutorial.pdf', '', 'documents/UMLClassDiagramTutorial.pdf', 163, '2016-01-24 16:00:00', '2016-01-25 05:15:18', 'test'),
-(49, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 164, '2016-01-24 16:00:00', '2016-01-25 05:20:48', ''),
-(50, 'limitation.pdf', '', 'documents/limitation.pdf', 164, '2016-01-24 16:00:00', '2016-01-25 05:20:48', 'test');
+(24, 'prayer.pdf', '', 'documents/prayer.pdf', 147, '2015-10-25 08:00:00', '2015-10-25 23:42:01', 'prayer doc remarks'),
+(25, 'bootstrap_cheatsheet.pdf', '', 'documents/bootstrap_cheatsheet.pdf', 147, '2015-10-25 08:00:00', '2015-10-25 23:42:01', 'bootstrap cheat sheet remarks'),
+(26, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 153, '2015-10-25 08:00:00', '2015-10-25 23:42:01', ''),
+(27, 'main report.pdf', '', 'documents/main report.pdf', 148, '2015-10-29 08:00:00', '2015-10-30 02:57:09', 'some remarks regarding main report'),
+(28, 'me.jpg', 'updated picture', 'documents/me.jpg', 148, '2015-10-29 08:00:00', '2015-10-30 02:57:09', ''),
+(29, 'me.jpg', 'updated picture', 'documents/me.jpg', 152, '2015-10-30 08:00:00', '2015-10-30 23:16:02', ''),
+(30, 'me.jpg', 'updated picture', 'documents/me.jpg', 92, '2015-10-30 08:00:00', '2015-10-30 23:19:28', ''),
+(31, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 155, '2015-11-04 08:00:00', '2015-11-04 23:12:55', ''),
+(32, 'prayer.pdf', '', 'documents/prayer.pdf', 155, '2015-11-04 08:00:00', '2015-11-04 23:12:55', 'try to update this prayer. upload a revision, rename getting started.pdf to prayer.pdf'),
+(33, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 156, '2015-11-04 08:00:00', '2015-11-04 23:14:06', ''),
+(34, 'prayer.pdf', '', 'documents/prayer.pdf', 156, '2015-11-04 08:00:00', '2015-11-04 23:14:06', 'try to update this prayer. upload a revision, rename getting started.pdf to prayer.pdf'),
+(35, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 157, '2015-11-04 08:00:00', '2015-11-04 23:14:24', ''),
+(36, 'prayer.pdf', '', 'documents/prayer.pdf', 157, '2015-11-04 08:00:00', '2015-11-04 23:14:24', 'try to update this prayer. upload a revision, rename getting started.pdf to prayer.pdf'),
+(37, 't-img3.jpg', 'updated picture', 'documents/t-img3.jpg', 158, '2015-11-12 08:00:00', '2015-11-13 02:46:09', ''),
+(38, 'UMLClassDiagramTutorial.pdf', '', 'documents/UMLClassDiagramTutorial.pdf', 158, '2015-11-12 08:00:00', '2015-11-13 02:46:09', 'Letter request from mayor'),
+(39, 'me.jpg', 'updated picture', 'documents/me.jpg', 159, '2015-12-01 08:00:00', '2015-12-02 06:10:58', ''),
+(40, 'saas.pdf', '', 'documents/saas.pdf', 159, '2015-12-01 08:00:00', '2015-12-02 06:10:58', 'test'),
+(41, 'me.jpg', 'updated picture', 'documents/me.jpg', 160, '2016-01-18 08:00:00', '2016-01-18 20:14:37', ''),
+(42, 'Getting Started.pdf', '', 'documents/Getting Started.pdf', 160, '2016-01-18 08:00:00', '2016-01-18 20:14:37', 'dropbox sample pdf data'),
+(43, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 161, '2016-01-21 08:00:00', '2016-01-21 19:17:48', ''),
+(44, 'limitation.pdf', '', 'documents/limitation.pdf', 161, '2016-01-21 08:00:00', '2016-01-21 19:17:48', 'test'),
+(45, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 162, '2016-01-24 08:00:00', '2016-01-24 21:12:19', ''),
+(46, 'limitation.pdf', '', 'documents/limitation.pdf', 162, '2016-01-24 08:00:00', '2016-01-24 21:12:19', 'tst'),
+(47, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 163, '2016-01-24 08:00:00', '2016-01-24 21:15:18', ''),
+(48, 'UMLClassDiagramTutorial.pdf', '', 'documents/UMLClassDiagramTutorial.pdf', 163, '2016-01-24 08:00:00', '2016-01-24 21:15:18', 'test'),
+(49, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 164, '2016-01-24 08:00:00', '2016-01-24 21:20:48', ''),
+(50, 'limitation.pdf', '', 'documents/limitation.pdf', 164, '2016-01-24 08:00:00', '2016-01-24 21:20:48', 'test'),
+(51, 'me.jpeg', 'updated picture', 'documents/me.jpeg', 8, '2016-02-16 16:00:00', '2016-02-17 11:28:20', ''),
+(52, 'users.pdf', '', 'documents/users.pdf', 8, '2016-02-16 16:00:00', '2016-02-17 11:28:20', 'remarks');
 
 -- --------------------------------------------------------
 
@@ -138,11 +136,10 @@ INSERT INTO `attacheddocuments` (`id`, `name`, `categories`, `location`, `travel
 -- Table structure for table `authority`
 --
 
-CREATE TABLE IF NOT EXISTS `authority` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `authority` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+CREATE TABLE `authority` (
+  `id` int(11) NOT NULL,
+  `authority` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `authority`
@@ -157,12 +154,11 @@ INSERT INTO `authority` (`id`, `authority`) VALUES
 -- Table structure for table `cities`
 --
 
-CREATE TABLE IF NOT EXISTS `cities` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `cities` (
+  `id` int(11) UNSIGNED NOT NULL,
   `name` varchar(300) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-  `province_id` int(11) unsigned NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1637 ;
+  `province_id` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cities`
@@ -1812,12 +1808,11 @@ INSERT INTO `cities` (`id`, `name`, `province_id`) VALUES
 -- Table structure for table `config`
 --
 
-CREATE TABLE IF NOT EXISTS `config` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `config` (
+  `id` int(11) NOT NULL,
   `configName` varchar(255) NOT NULL,
-  `contentOrLocation` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `contentOrLocation` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `config`
@@ -1832,12 +1827,11 @@ INSERT INTO `config` (`id`, `configName`, `contentOrLocation`) VALUES
 -- Table structure for table `countries`
 --
 
-CREATE TABLE IF NOT EXISTS `countries` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `countries` (
+  `id` int(11) NOT NULL,
   `country_code` varchar(2) NOT NULL DEFAULT '',
-  `country_name` varchar(100) NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=247 ;
+  `country_name` varchar(100) NOT NULL DEFAULT ''
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `countries`
@@ -2097,11 +2091,10 @@ INSERT INTO `countries` (`id`, `country_code`, `country_name`) VALUES
 -- Table structure for table `department`
 --
 
-CREATE TABLE IF NOT EXISTS `department` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `department` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+CREATE TABLE `department` (
+  `id` int(11) NOT NULL,
+  `department` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `department`
@@ -2122,12 +2115,11 @@ INSERT INTO `department` (`id`, `department`) VALUES
 -- Table structure for table `departmentdissallowpages`
 --
 
-CREATE TABLE IF NOT EXISTS `departmentdissallowpages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `departmentdissallowpages` (
+  `id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
-  `securedpage_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `securedpage_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -2135,13 +2127,12 @@ CREATE TABLE IF NOT EXISTS `departmentdissallowpages` (
 -- Table structure for table `links`
 --
 
-CREATE TABLE IF NOT EXISTS `links` (
+CREATE TABLE `links` (
   `label` varchar(255) NOT NULL,
   `link` varchar(255) NOT NULL,
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `menu` tinyint(1) NOT NULL DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `id` int(11) NOT NULL,
+  `menu` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `links`
@@ -2158,7 +2149,7 @@ INSERT INTO `links` (`label`, `link`, `id`, `menu`) VALUES
 -- Table structure for table `migrations`
 --
 
-CREATE TABLE IF NOT EXISTS `migrations` (
+CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -2187,17 +2178,13 @@ INSERT INTO `migrations` (`migration`, `batch`) VALUES
 -- Table structure for table `orderofapproval`
 --
 
-CREATE TABLE IF NOT EXISTS `orderofapproval` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orderofapproval` (
+  `id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
   `description` text,
   `status_id` int(11) NOT NULL,
-  `accounttype_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `department_id` (`department_id`),
-  KEY `accounttype_id` (`accounttype_id`),
-  KEY `status_id` (`status_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+  `accounttype_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `orderofapproval`
@@ -2218,12 +2205,10 @@ INSERT INTO `orderofapproval` (`id`, `department_id`, `description`, `status_id`
 -- Table structure for table `password_resets`
 --
 
-CREATE TABLE IF NOT EXISTS `password_resets` (
+CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  KEY `password_resets_email_index` (`email`),
-  KEY `password_resets_token_index` (`token`)
+  `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2232,14 +2217,13 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Table structure for table `position`
 --
 
-CREATE TABLE IF NOT EXISTS `position` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `position` (
+  `id` int(10) UNSIGNED NOT NULL,
   `positionType` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `position` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `position`
@@ -2260,14 +2244,13 @@ INSERT INTO `position` (`id`, `positionType`, `position`, `created_at`, `updated
 -- Table structure for table `provinces`
 --
 
-CREATE TABLE IF NOT EXISTS `provinces` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `provinces` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `region_id` bigint(20) NOT NULL,
   `province` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=87 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `provinces`
@@ -2367,17 +2350,14 @@ INSERT INTO `provinces` (`id`, `region_id`, `province`, `created_at`, `updated_a
 -- Table structure for table `refcitymun`
 --
 
-CREATE TABLE IF NOT EXISTS `refcitymun` (
-  `id` int(255) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `refcitymun` (
+  `id` int(255) NOT NULL,
   `psgcCode` varchar(255) DEFAULT NULL,
   `citymunDesc` text,
   `regDesc` varchar(255) DEFAULT NULL,
   `provCode` varchar(255) DEFAULT NULL,
-  `citymunCode` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `regDesc` (`regDesc`),
-  KEY `provCode` (`provCode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1648 ;
+  `citymunCode` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `refcitymun`
@@ -3289,9 +3269,9 @@ INSERT INTO `refcitymun` (`id`, `psgcCode`, `citymunDesc`, `regDesc`, `provCode`
 (903, '072245000', 'SANTANDER', '07', '0722', '072245'),
 (904, '072246000', 'SIBONGA', '07', '0722', '072246'),
 (905, '072247000', 'SOGOD', '07', '0722', '072247'),
-(906, '072248000', 'TABOGON', '07', '0722', '072248');
+(906, '072248000', 'TABOGON', '07', '0722', '072248'),
+(907, '072249000', 'TABUELAN', '07', '0722', '072249');
 INSERT INTO `refcitymun` (`id`, `psgcCode`, `citymunDesc`, `regDesc`, `provCode`, `citymunCode`) VALUES
-(907, '072249000', 'TABUELAN', '07', '0722', '072249'),
 (908, '072250000', 'CITY OF TALISAY', '07', '0722', '072250'),
 (909, '072251000', 'TOLEDO CITY', '07', '0722', '072251'),
 (910, '072252000', 'TUBURAN', '07', '0722', '072252'),
@@ -4039,15 +4019,13 @@ INSERT INTO `refcitymun` (`id`, `psgcCode`, `citymunDesc`, `regDesc`, `provCode`
 -- Table structure for table `refprovince`
 --
 
-CREATE TABLE IF NOT EXISTS `refprovince` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `refprovince` (
+  `id` int(11) NOT NULL,
   `psgcCode` varchar(255) DEFAULT NULL,
   `provDesc` text,
   `regCode` varchar(255) DEFAULT NULL,
-  `provCode` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `provCode` (`provCode`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=89 ;
+  `provCode` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `refprovince`
@@ -4149,13 +4127,12 @@ INSERT INTO `refprovince` (`id`, `psgcCode`, `provDesc`, `regCode`, `provCode`) 
 -- Table structure for table `refregion`
 --
 
-CREATE TABLE IF NOT EXISTS `refregion` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `refregion` (
+  `id` int(11) NOT NULL,
   `psgcCode` varchar(255) DEFAULT NULL,
   `regDesc` text,
-  `regCode` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=18 ;
+  `regCode` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `refregion`
@@ -4186,13 +4163,12 @@ INSERT INTO `refregion` (`id`, `psgcCode`, `regDesc`, `regCode`) VALUES
 -- Table structure for table `regions`
 --
 
-CREATE TABLE IF NOT EXISTS `regions` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `regions` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `region` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=18 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `regions`
@@ -4223,13 +4199,12 @@ INSERT INTO `regions` (`id`, `region`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `securedpages`
 --
 
-CREATE TABLE IF NOT EXISTS `securedpages` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `securedpages` (
+  `id` int(11) NOT NULL,
   `pages` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -4237,13 +4212,12 @@ CREATE TABLE IF NOT EXISTS `securedpages` (
 -- Table structure for table `statuscode`
 --
 
-CREATE TABLE IF NOT EXISTS `statuscode` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `statuscode` (
+  `id` int(10) NOT NULL,
   `statusCode` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `statuscode`
@@ -4263,8 +4237,8 @@ INSERT INTO `statuscode` (`id`, `statusCode`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `travelapplication`
 --
 
-CREATE TABLE IF NOT EXISTS `travelapplication` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `travelapplication` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `applicationstatus_id` int(11) NOT NULL,
   `blgsstatus` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `remarks` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -4300,10 +4274,51 @@ CREATE TABLE IF NOT EXISTS `travelapplication` (
   `applyEntitlements` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `encodedBy` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `InitialToUsec` tinyint(1) NOT NULL DEFAULT '0',
-  `administrativerequirement` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `applicationstatus_id` (`applicationstatus_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=165 ;
+  `administrativerequirement` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `travelapplication`
+--
+
+INSERT INTO `travelapplication` (`id`, `applicationstatus_id`, `blgsstatus`, `remarks`, `region`, `province`, `municipality`, `firstname`, `lastname`, `middlename`, `sex`, `suffix`, `birthdate`, `positionType`, `position`, `picture`, `mobile`, `travelType`, `groupDelegation`, `sponsor`, `benefits`, `flightinfo_country`, `flightinfo_purpose`, `flightinfo_datefrom`, `flightinfo_dateto`, `flightinfo_natureOfTravelRequested`, `flightinfo_travelRequested`, `created_at`, `updated_at`, `dateapproved`, `entitlements`, `copyFurnished`, `email`, `applyEntitlements`, `encodedBy`, `InitialToUsec`, `administrativerequirement`) VALUES
+(1, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:20:45', '2016-02-17 11:20:45', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL),
+(2, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:21:51', '2016-02-17 11:21:51', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL),
+(3, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:22:08', '2016-02-17 11:22:08', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL),
+(4, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:22:21', '2016-02-17 11:22:21', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL),
+(5, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:22:31', '2016-02-17 11:22:31', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL),
+(6, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:23:50', '2016-02-17 11:23:50', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL),
+(7, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:24:01', '2016-02-17 11:24:01', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL),
+(8, 1, NULL, '', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 'ADAMS', 'Mark Joshua', 'Abrenica', 'Rivera', 'male', '', '1993-05-21', 'ELECTIVE', 'governor', 'pictures/me.jpeg', '09175824979', '', '', '', '', '', '', '0000-00-00', '0000-00-00', '', '', '2016-02-17 11:28:20', '2016-02-17 11:28:20', '0000-00-00 00:00:00', '', '', 'abrenicamarkjoshua@gmail.com', '', ', , ', 0, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `travelflight`
+--
+
+CREATE TABLE `travelflight` (
+  `id` int(11) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `datefrom` date NOT NULL,
+  `dateto` date NOT NULL,
+  `benefits` varchar(255) NOT NULL,
+  `groupdelegation` text NOT NULL,
+  `natureoftravelrequested` varchar(255) NOT NULL,
+  `traveltype` varchar(255) NOT NULL,
+  `entitlementsrequested` varchar(255) NOT NULL,
+  `undertravelallowance` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `travelflight`
+--
+
+INSERT INTO `travelflight` (`id`, `country`, `datefrom`, `dateto`, `benefits`, `groupdelegation`, `natureoftravelrequested`, `traveltype`, `entitlementsrequested`, `undertravelallowance`, `created_at`, `updated_at`) VALUES
+(1, 'United States', '2016-02-17', '2016-02-20', 'benefits 1', 'group 1', 'Study(Scholarship Grants)', 'OTO', '', '', '2016-02-17 19:28:20', '2016-02-17 19:28:20'),
+(2, 'Azerbaijan', '2016-02-24', '2016-02-27', 'benefits 2', 'group/delegation 2', 'Study(Scholarship Grants)', 'OB', ' Travel Allowance', ' Hotel/Logging expenses, Meals expenses', '2016-02-17 19:28:20', '2016-02-17 19:28:20');
 
 -- --------------------------------------------------------
 
@@ -4311,13 +4326,12 @@ CREATE TABLE IF NOT EXISTS `travelapplication` (
 -- Table structure for table `traveltype`
 --
 
-CREATE TABLE IF NOT EXISTS `traveltype` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `traveltype` (
+  `id` int(10) UNSIGNED NOT NULL,
   `travelType` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `traveltype`
@@ -4333,14 +4347,13 @@ INSERT INTO `traveltype` (`id`, `travelType`, `created_at`, `updated_at`) VALUES
 -- Table structure for table `userassignmentprovincial`
 --
 
-CREATE TABLE IF NOT EXISTS `userassignmentprovincial` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `userassignmentprovincial` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `province_id` bigint(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `userassignmentprovincial`
@@ -4355,14 +4368,13 @@ INSERT INTO `userassignmentprovincial` (`id`, `user_id`, `province_id`, `created
 -- Table structure for table `userassignmentregional`
 --
 
-CREATE TABLE IF NOT EXISTS `userassignmentregional` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `userassignmentregional` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) NOT NULL,
   `region_id` bigint(20) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `userassignmentregional`
@@ -4377,12 +4389,11 @@ INSERT INTO `userassignmentregional` (`id`, `user_id`, `region_id`, `created_at`
 -- Table structure for table `userauthority`
 --
 
-CREATE TABLE IF NOT EXISTS `userauthority` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `userauthority` (
+  `id` int(11) NOT NULL,
   `department_id` int(11) NOT NULL,
-  `authority_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `authority_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `userauthority`
@@ -4398,8 +4409,8 @@ INSERT INTO `userauthority` (`id`, `department_id`, `authority_id`) VALUES
 -- Table structure for table `users`
 --
 
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
   `accountType_id` int(11) NOT NULL,
   `accountStatus` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -4416,22 +4427,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `province` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   `department_id` int(11) NOT NULL,
   `contactnumber` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `municipality` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `department_id` (`department_id`),
-  KEY `accountType_id` (`accountType_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=103178 ;
+  `municipality` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `accountType_id`, `accountStatus`, `lastname`, `firstname`, `middlename`, `suffix`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`, `region`, `province`, `department_id`, `contactnumber`, `municipality`) VALUES
-(101329, 1, 'active', '', '', '', '', 'blgs', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '0xP2tWOu89uRZgb2iPjfWXmYyGbnEuoHVecKa9aCj04VExehjvneYwn1yhNv', '0000-00-00 00:00:00', '2016-01-18 19:53:49', NULL, NULL, 2, '', NULL),
-(101330, 1, 'active', '', '', '', '', 'usec', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '4T7jSCUjiGPayBt7PVaxxccbSBZsbENLv3UMwb0OnjXRsalJishWaDronA0a', '0000-00-00 00:00:00', '2016-01-18 20:41:39', NULL, NULL, 4, '', NULL),
+(101329, 1, 'active', '', '', '', '', 'blgs', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '0xP2tWOu89uRZgb2iPjfWXmYyGbnEuoHVecKa9aCj04VExehjvneYwn1yhNv', '0000-00-00 00:00:00', '2016-01-18 11:53:49', NULL, NULL, 2, '', NULL),
+(101330, 1, 'active', '', '', '', '', 'usec', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '4T7jSCUjiGPayBt7PVaxxccbSBZsbENLv3UMwb0OnjXRsalJishWaDronA0a', '0000-00-00 00:00:00', '2016-01-18 12:41:39', NULL, NULL, 4, '', NULL),
 (101331, 1, 'active', '', '', '', '', 'osec', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 5, '', NULL),
-(101332, 1, 'active', '', '', '', '', 'immigration', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'uEvp9swjP1Hapf7a9YxkJQI2qwcPzkmR1jykcHYh5xTvy5Y60ZQnIcsfJSww', '0000-00-00 00:00:00', '2016-01-18 20:41:57', NULL, NULL, 6, '', NULL),
-(101333, 2, 'not assigned', '', '', '', '', 'DILG RO-RI', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'J5FyFPDxtE6Hx4C6Ef6pCq9kMCWZpT3ocYZVjfKnWO5Hg4WsMnCGxs3eHvG6', '0000-00-00 00:00:00', '2016-01-18 18:45:35', 'REGION I (ILOCOS REGION)', NULL, 3, '', NULL),
+(101332, 1, 'active', '', '', '', '', 'immigration', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'uEvp9swjP1Hapf7a9YxkJQI2qwcPzkmR1jykcHYh5xTvy5Y60ZQnIcsfJSww', '0000-00-00 00:00:00', '2016-01-18 12:41:57', NULL, NULL, 6, '', NULL),
+(101333, 2, 'not assigned', '', '', '', '', 'DILG RO-RI', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'J5FyFPDxtE6Hx4C6Ef6pCq9kMCWZpT3ocYZVjfKnWO5Hg4WsMnCGxs3eHvG6', '0000-00-00 00:00:00', '2016-01-18 10:45:35', 'REGION I (ILOCOS REGION)', NULL, 3, '', NULL),
 (101334, 2, 'not assigned', '', '', '', '', 'DILG RO-RII', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION II (CAGAYAN VALLEY)', NULL, 3, '', NULL),
 (101335, 2, 'not assigned', '', '', '', '', 'DILG RO-RIII', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'xvt0rdNOzZdaPlBw5EWCOEbCcRgIC1Sv1oVFBlhaDm3ePb5xsdcjbYYPC91i', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION III (CENTRAL LUZON)', NULL, 3, '', NULL),
 (101336, 2, 'not assigned', '', '', '', '', 'DILG RO-RIVA', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION IV-A (CALABARZON)', NULL, 3, '', NULL),
@@ -4448,7 +4456,7 @@ INSERT INTO `users` (`id`, `accountType_id`, `accountStatus`, `lastname`, `first
 (101347, 2, 'not assigned', '', '', '', '', 'DILG RO-CAR', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'CORDILLERA ADMINISTRATIVE REGION (CAR)', NULL, 3, '', NULL),
 (101348, 2, 'not assigned', '', '', '', '', 'DILG RO-ARMM', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'AUTONOMOUS REGION IN MUSLIM MINDANAO (ARMM)', NULL, 3, '', NULL),
 (101349, 2, 'not assigned', '', '', '', '', 'DILG RO-RXIII', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', NULL, 3, '', NULL),
-(101350, 3, 'not assigned', '', '', '', '', 'lgu-ILOCOS NORTE', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'QiLBkiVLgPJO0Sbi6ufhhfNNvVeuDqdDwUX7nagteo1f46eX0VWhIDLkUiAt', '0000-00-00 00:00:00', '2016-01-24 21:21:29', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 1, '', NULL),
+(101350, 3, 'not assigned', '', '', '', '', 'lgu-ILOCOS NORTE', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'Zhh4Uf6TorNyTXeNK2gaqdT8MuQxLBkcVbpdRyaNjnLrKB0mxdkziCjM3f2e', '0000-00-00 00:00:00', '2016-02-11 20:42:58', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 1, '', NULL),
 (101351, 3, 'not assigned', '', '', '', '', 'dilg po-ILOCOS NORTE', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'CdmbDjabHMUmQRS8TqfpPcnDUldPznwXsX0GDdFL5NPKyHguEYceMWw2Jmt0', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION I (ILOCOS REGION)', 'ILOCOS NORTE', 7, '', NULL),
 (101352, 3, 'not assigned', '', '', '', '', 'lgu-ILOCOS SUR', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION I (ILOCOS REGION)', 'ILOCOS SUR', 1, '', NULL),
 (101353, 3, 'not assigned', '', '', '', '', 'dilg po-ILOCOS SUR', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION I (ILOCOS REGION)', 'ILOCOS SUR', 7, '', NULL),
@@ -6276,13 +6284,324 @@ INSERT INTO `users` (`id`, `accountType_id`, `accountStatus`, `lastname`, `first
 (103166, 3, 'not assigned', '', '', '', '', 'lgu-LORETO', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', 'DINAGAT ISLANDS', 1, '', 'LORETO'),
 (103167, 3, 'not assigned', '', '', '', '', 'lgu-SAN JOSE (Capital)', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', 'DINAGAT ISLANDS', 1, '', 'SAN JOSE (Capital)'),
 (103168, 3, 'not assigned', '', '', '', '', 'lgu-TUBAJON', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'REGION XIII (Caraga)', 'DINAGAT ISLANDS', 1, '', 'TUBAJON'),
-(103172, 4, 'active', '', '', '', '', 'admin1', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'NMWFAIJiOOBa9XG7mIE5OWVOZJ6Tj7kov91HRiq7a0oBwpAcf9ZWQCn79H4D', '0000-00-00 00:00:00', '2016-01-18 20:18:37', NULL, NULL, 2, '', NULL),
-(103173, 5, 'active', '', '', '', '', 'admin2', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'R3YcoznboZRD45HsBiz6k6VcrvuaY5MjVauvXy88R3yx7IYD1KtqwxKZc8cs', '0000-00-00 00:00:00', '2016-01-18 20:19:03', NULL, NULL, 2, '', NULL),
+(103172, 4, 'active', '', '', '', '', 'admin1', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'NMWFAIJiOOBa9XG7mIE5OWVOZJ6Tj7kov91HRiq7a0oBwpAcf9ZWQCn79H4D', '0000-00-00 00:00:00', '2016-01-18 12:18:37', NULL, NULL, 2, '', NULL),
+(103173, 5, 'active', '', '', '', '', 'admin2', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'R3YcoznboZRD45HsBiz6k6VcrvuaY5MjVauvXy88R3yx7IYD1KtqwxKZc8cs', '0000-00-00 00:00:00', '2016-01-18 12:19:03', NULL, NULL, 2, '', NULL),
 (103174, 6, 'active', '', '', '', '', 'admin3', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', NULL, '0000-00-00 00:00:00', '0000-00-00 00:00:00', NULL, NULL, 2, '', NULL),
-(103175, 7, 'active', '', '', '', '', 'admin4', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'ZE2A3hdKEnQYqsHEktYKUoWZSzZsiBoP5YIsnpSvnsiULmngAoJ8ALOCfTTr', '0000-00-00 00:00:00', '2016-01-24 21:22:24', NULL, NULL, 2, '', NULL),
-(103176, 8, 'active', '', '', '', '', 'admin5', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '8y620cWHvqpdZ4oh5CyZvGPP8Y5y8OT8h1sCXBk6WVwltx8ZLONlYiducGv1', '0000-00-00 00:00:00', '2016-01-21 20:00:58', NULL, NULL, 2, '', NULL),
-(103177, 9, 'active', '', '', '', '', 'admin6', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '3p2yFcVsotUIjHZ5XHJ5xGV5Kz786Z0o8GKAUFOCvJnbZq2zS5WAv7x7gggi', '0000-00-00 00:00:00', '2016-01-18 20:41:27', NULL, NULL, 2, '', NULL);
+(103175, 7, 'active', '', '', '', '', 'admin4', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', 'ZE2A3hdKEnQYqsHEktYKUoWZSzZsiBoP5YIsnpSvnsiULmngAoJ8ALOCfTTr', '0000-00-00 00:00:00', '2016-01-24 13:22:24', NULL, NULL, 2, '', NULL),
+(103176, 8, 'active', '', '', '', '', 'admin5', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '8y620cWHvqpdZ4oh5CyZvGPP8Y5y8OT8h1sCXBk6WVwltx8ZLONlYiducGv1', '0000-00-00 00:00:00', '2016-01-21 12:00:58', NULL, NULL, 2, '', NULL),
+(103177, 9, 'active', '', '', '', '', 'admin6', NULL, '$2y$10$kTXUvr9dgX5h.vTE7NZUcetGaTezGoPys9JlVpcWQYNPlddIPQFSS', '3p2yFcVsotUIjHZ5XHJ5xGV5Kz786Z0o8GKAUFOCvJnbZq2zS5WAv7x7gggi', '0000-00-00 00:00:00', '2016-01-18 12:41:27', NULL, NULL, 2, '', NULL);
 
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `accountaccessiblelinks`
+--
+ALTER TABLE `accountaccessiblelinks`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `link_id` (`link_id`);
+
+--
+-- Indexes for table `accounttype`
+--
+ALTER TABLE `accounttype`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `attacheddocuments`
+--
+ALTER TABLE `attacheddocuments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `authority`
+--
+ALTER TABLE `authority`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `config`
+--
+ALTER TABLE `config`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `countries`
+--
+ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `department`
+--
+ALTER TABLE `department`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `departmentdissallowpages`
+--
+ALTER TABLE `departmentdissallowpages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `links`
+--
+ALTER TABLE `links`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orderofapproval`
+--
+ALTER TABLE `orderofapproval`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `department_id` (`department_id`),
+  ADD KEY `accounttype_id` (`accounttype_id`),
+  ADD KEY `status_id` (`status_id`);
+
+--
+-- Indexes for table `password_resets`
+--
+ALTER TABLE `password_resets`
+  ADD KEY `password_resets_email_index` (`email`),
+  ADD KEY `password_resets_token_index` (`token`);
+
+--
+-- Indexes for table `position`
+--
+ALTER TABLE `position`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `provinces`
+--
+ALTER TABLE `provinces`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `refcitymun`
+--
+ALTER TABLE `refcitymun`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `regDesc` (`regDesc`),
+  ADD KEY `provCode` (`provCode`);
+
+--
+-- Indexes for table `refprovince`
+--
+ALTER TABLE `refprovince`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `provCode` (`provCode`);
+
+--
+-- Indexes for table `refregion`
+--
+ALTER TABLE `refregion`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `regions`
+--
+ALTER TABLE `regions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `securedpages`
+--
+ALTER TABLE `securedpages`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `statuscode`
+--
+ALTER TABLE `statuscode`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `travelapplication`
+--
+ALTER TABLE `travelapplication`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `applicationstatus_id` (`applicationstatus_id`);
+
+--
+-- Indexes for table `travelflight`
+--
+ALTER TABLE `travelflight`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `traveltype`
+--
+ALTER TABLE `traveltype`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `userassignmentprovincial`
+--
+ALTER TABLE `userassignmentprovincial`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `userassignmentregional`
+--
+ALTER TABLE `userassignmentregional`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `userauthority`
+--
+ALTER TABLE `userauthority`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `department_id` (`department_id`),
+  ADD KEY `accountType_id` (`accountType_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `accountaccessiblelinks`
+--
+ALTER TABLE `accountaccessiblelinks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT for table `accounttype`
+--
+ALTER TABLE `accounttype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `attacheddocuments`
+--
+ALTER TABLE `attacheddocuments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+--
+-- AUTO_INCREMENT for table `authority`
+--
+ALTER TABLE `authority`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1637;
+--
+-- AUTO_INCREMENT for table `config`
+--
+ALTER TABLE `config`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `countries`
+--
+ALTER TABLE `countries`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+--
+-- AUTO_INCREMENT for table `department`
+--
+ALTER TABLE `department`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `departmentdissallowpages`
+--
+ALTER TABLE `departmentdissallowpages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `links`
+--
+ALTER TABLE `links`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `orderofapproval`
+--
+ALTER TABLE `orderofapproval`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `position`
+--
+ALTER TABLE `position`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT for table `provinces`
+--
+ALTER TABLE `provinces`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+--
+-- AUTO_INCREMENT for table `refcitymun`
+--
+ALTER TABLE `refcitymun`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1648;
+--
+-- AUTO_INCREMENT for table `refprovince`
+--
+ALTER TABLE `refprovince`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+--
+-- AUTO_INCREMENT for table `refregion`
+--
+ALTER TABLE `refregion`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `regions`
+--
+ALTER TABLE `regions`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT for table `securedpages`
+--
+ALTER TABLE `securedpages`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `statuscode`
+--
+ALTER TABLE `statuscode`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT for table `travelapplication`
+--
+ALTER TABLE `travelapplication`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT for table `travelflight`
+--
+ALTER TABLE `travelflight`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `traveltype`
+--
+ALTER TABLE `traveltype`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `userassignmentprovincial`
+--
+ALTER TABLE `userassignmentprovincial`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `userassignmentregional`
+--
+ALTER TABLE `userassignmentregional`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `userauthority`
+--
+ALTER TABLE `userauthority`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103178;
 --
 -- Constraints for dumped tables
 --

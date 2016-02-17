@@ -21,6 +21,7 @@ use App\department;
 use App\accountaccessiblelinks;
 use App\attachedDocuments;
 use DateTime;
+use App\travelflight;
 class HomeController extends Controller{
 	//abrenicamarkjoshua@gmail.com
 	protected $links;
@@ -1209,11 +1210,7 @@ class HomeController extends Controller{
 			$administrativeRequirement = $_POST['administrativeRequirements'];
 		}
 		$municipality = (isset($_POST['municipality'])) ? $_POST['municipality'] : "";
-		$countries = "";
-		foreach($_POST['country'] as $country){
-			$countries .= $country . ", ";
-		}
-		$countries = rtrim($countries, ', ');
+		
 		$insert = [
 		'applicationstatus_id' => 1,
 		'remarks' => "",
@@ -1233,17 +1230,12 @@ class HomeController extends Controller{
 		'travelType'=> $travelType,
 		'groupDelegation'=> $_POST['groupDelegation'],
 		'benefits' =>$_POST['benefits'],
-		'flightinfo_country'=> $countries,
-		'flightinfo_purpose'=> $_POST['purpose'],
-		'flightinfo_datefrom'=> $_POST['datefrom'],
-		'flightinfo_dateto'=> $_POST['dateto'],
-		'flightinfo_natureOfTravelRequested'=> $_POST['natureOfTravelRequested'],
-		'flightinfo_travelRequested'=> $travelRequested,
+		
 		'created_at' => date("Y-m-d H:i:s"),
-		'applyEntitlements' => $applicationEntitlements,
+		
 		'email' => $_POST['email'],
 		'encodedBy' => Auth::user()->lastname . ", " . Auth::user()->firstname . ", " . Auth::user()->middlename,
-		'administrativeRequirement' => $administrativeRequirement
+		
 		];
 		//todo: add some back-end validation
 
@@ -1258,23 +1250,23 @@ class HomeController extends Controller{
 			     
 			 	$flights = [];
 		
-				foreach($_POST['travel_flight'] as $travel){
-					array_push($flights,  ["country" => $travel["country"],
-									"datefrom" => $travel["datefrom"],
-									"dateto" => $travel["dateto"],
-									"benefits" => $travel["benefits"],
-									"groupdelegation" => $travel["groupdelegation"],
-									"natureoftravelrequested" => $travel["natureoftravelrequested"],
-									"traveltype" => $travel["traveltype"],
-									"entitlementsrequested" => $travel["entitlementsrequested"],
-									"undertravelallowance" => $travel["undertravelallowance"]
+				foreach($_POST['travel_flight'] as $travel_i){
+					array_push($flights,  ["country" => $travel_i["country"],
+									"datefrom" => $travel_i["datefrom"],
+									"dateto" => $travel_i["dateto"],
+									"benefits" => $travel_i["benefits"],
+									"groupdelegation" => $travel_i["groupdelegation"],
+									"natureoftravelrequested" => $travel_i["natureoftravelrequested"],
+									"traveltype" => $travel_i["traveltype"],
+									"entitlementsrequested" => $travel_i["entitlementsrequested"],
+									"undertravelallowance" => $travel_i["undertravelallowance"]
 									]);
 				}
 				foreach($flights as $flight){
 					$travel_insert = [
 						"country" => $flight["country"],
 						"datefrom" => $flight["datefrom"],
-						"travelApplication_id" => $travel->id,
+						"travelapplication_id" => $travel->id,
 						"dateto" => $flight["dateto"],
 						"benefits" => $flight["benefits"],
 						"groupdelegation" => $flight["groupdelegation"],
@@ -1282,13 +1274,11 @@ class HomeController extends Controller{
 						"traveltype" => $flight["traveltype"],
 						"entitlementsrequested" => $flight["entitlementsrequested"],
 						"undertravelallowance" => $flight["undertravelallowance"]
-									
 					];
-					$travel_flight_insert = travelFlight::create($travel_insert);
+					$travel_flight_insert = travelflight::create($travel_insert);
 				}
-			
 
-			     	//upload picture
+		     	//upload picture
     	if ($request->hasFile('picture')) {
     		//
 
