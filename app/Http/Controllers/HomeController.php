@@ -1161,6 +1161,8 @@ class HomeController extends Controller{
 		return view('applyForTravel', $this->data);
 	}
 	public function postApplyForTravel(request $request){
+		
+	
 		$travelRequested = "";
 		if(isset($_POST['OfficialBusinesswithAirfare']) == true && $_POST['OfficialBusinesswithAirfare'] == true){
 			$travelRequested .= "Official Business with Airfare,";
@@ -1254,7 +1256,37 @@ class HomeController extends Controller{
 			 	$travelApplication_id = $travel->id;
 			 	$this->travelApplication_id = $travel->id;
 			     
-
+			 	$flights = [];
+		
+				foreach($_POST['travel_flight'] as $travel){
+					array_push($flights,  ["country" => $travel["country"],
+									"datefrom" => $travel["datefrom"],
+									"dateto" => $travel["dateto"],
+									"benefits" => $travel["benefits"],
+									"groupdelegation" => $travel["groupdelegation"],
+									"natureoftravelrequested" => $travel["natureoftravelrequested"],
+									"traveltype" => $travel["traveltype"],
+									"entitlementsrequested" => $travel["entitlementsrequested"],
+									"undertravelallowance" => $travel["undertravelallowance"]
+									]);
+				}
+				foreach($flights as $flight){
+					$travel_insert = [
+						"country" => $flight["country"],
+						"datefrom" => $flight["datefrom"],
+						"travelApplication_id" => $travel->id,
+						"dateto" => $flight["dateto"],
+						"benefits" => $flight["benefits"],
+						"groupdelegation" => $flight["groupdelegation"],
+						"natureoftravelrequested" => $flight["natureoftravelrequested"],
+						"traveltype" => $flight["traveltype"],
+						"entitlementsrequested" => $flight["entitlementsrequested"],
+						"undertravelallowance" => $flight["undertravelallowance"]
+									
+					];
+					$travel_flight_insert = travelFlight::create($travel_insert);
+				}
+			
 
 			     	//upload picture
     	if ($request->hasFile('picture')) {

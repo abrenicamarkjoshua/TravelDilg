@@ -1,104 +1,129 @@
+var travelApplication;
+var travelApplication_flight;
+function randomString(length) {
+    return Math.round((Math.pow(36, length + 1) - Math.random() * Math.pow(36, length))).toString(36).slice(1);
+}
+$('#btnStep1Next').click(function() {
+          
+          travelApplication['region'] = $('#region').val();
+          travelApplication['province'] = $('.province').val();
+          travelApplication['municipality'] = $('#municipality').val();
+          travelApplication['firstname'] = $('#firstname').val();
+          travelApplication['lastname'] = $('#lastname').val();
+          travelApplication['middlename'] = $('#middlename').val();
+          travelApplication['sex'] = $('#sex').val();
+          travelApplication['suffix'] = $('#suffix').val();
+          travelApplication['birthdate'] = $('#birthdate').val();
+          travelApplication['positionType'] = $('#positiontype').val();
+          travelApplication['positionElective'] = $('#positionElective').val();
+          travelApplication['nonelectivePosition'] = $('#nonelectiveposition').val();
+          travelApplication['mobile'] = $('#mobilenumber').val();
+          travelApplication['email'] = $('#email').val();
 
-$("#btnAddTravel").click(function(){
-  suffix++;
-var country = $("#country").val();
+          picture = $('#uploadpicture').prop('files')[0];   
+          travelApplication['picture'] = picture;
 
-var datefrom = $("#datefrom").val();
- 
-var dateto = $("#dateto").val();
-var purpose = $("#purpose").val();
-var benefits = $("#benefits").val();
-var groupDelegation = $("#groupDelegation").val();
-var natureOfTravelRequested = $("#natureOfTravelRequested").val();
-var travelType = $("#travelType").val();
-var entitlementsRequested = "";
-"<input type = 'checkbox' onchange = 'displayUnderTravelAllowance()' name = 'entitlementrequestedTravelAllowance' id = 'entitlementrequestedTravelAllowance' >Travel allowance</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' >International airfare (economy)</input>&nbsp&nbsp&nbsp<input {{$checkParticipationFee}} type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' >Registration fee / participation fee</input><input {{$checkOthers}} type = 'checkbox' name = 'entitlementrequestedOthers' >Others</input>";
-        
-if($("#entitlementrequestedTravelAllowance").is(':checked')){
-  entitlementsRequested += " Travel Allowance,";
-}
-if($("#entitlementrequestedInternationalAirfare").is(':checked')){
-  entitlementsRequested += " International Airfare,";
-}
-if($("#entitlementrequestedInternationalAirfare").is(':checked')){
-  entitlementsRequested += " International Airfare (economy),";
-}
-if($("#entitlementrequestedRegistrationParticipationFee").is(':checked')){
-  entitlementsRequested += " Registration fee / participation fee,";
-}
-if($("#natureOfTravelRequested").val() == "Non study" || $("#natureOfTravelRequested").val() == "Personal"){
-  if($("#travelType").val() == "OTO" || $("#travelType").val() == "OB"){
-    entitlementsRequested += " " + $("#travel_administrativeRequirements").val() + ",";
+          console.log(travelApplication);
+  });
+
+  $("#btnAddTravel").click(function(){
+    suffix++;
+  var country = $("#country").val();
+
+  var datefrom = $("#datefrom").val();
+   
+  var dateto = $("#dateto").val();
+  var purpose = $("#purpose").val();
+  var benefits = $("#benefits").val();
+  var groupDelegation = $("#groupDelegation").val();
+  var natureOfTravelRequested = $("#natureOfTravelRequested").val();
+  var travelType = $("#travelType").val();
+  var entitlementsRequested = "";
+  "<input type = 'checkbox' onchange = 'displayUnderTravelAllowance()' name = 'entitlementrequestedTravelAllowance' id = 'entitlementrequestedTravelAllowance' >Travel allowance</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'entitlementrequestedInternationalAirfare' >International airfare (economy)</input>&nbsp&nbsp&nbsp<input {{$checkParticipationFee}} type = 'checkbox' name = 'entitlementrequestedRegistrationParticipationFee' >Registration fee / participation fee</input><input {{$checkOthers}} type = 'checkbox' name = 'entitlementrequestedOthers' >Others</input>";
+          
+  if($("#entitlementrequestedTravelAllowance").is(':checked')){
+    entitlementsRequested += " Travel Allowance,";
   }
-}
-entitlementsRequested = entitlementsRequested.slice(0, -1);
+  if($("#entitlementrequestedInternationalAirfare").is(':checked')){
+    entitlementsRequested += " International Airfare,";
+  }
+  if($("#entitlementrequestedInternationalAirfare").is(':checked')){
+    entitlementsRequested += " International Airfare (economy),";
+  }
+  if($("#entitlementrequestedRegistrationParticipationFee").is(':checked')){
+    entitlementsRequested += " Registration fee / participation fee,";
+  }
+  if($("#natureOfTravelRequested").val() == "Non study" || $("#natureOfTravelRequested").val() == "Personal"){
+    if($("#travelType").val() == "OTO" || $("#travelType").val() == "OB"){
+      entitlementsRequested += " " + $("#travel_administrativeRequirements").val() + ",";
+    }
+  }
+  entitlementsRequested = entitlementsRequested.slice(0, -1);
 
-var underTravelAllowance = "";
-if($("#hotelLoggingExpenses").is(':checked')){
-  underTravelAllowance  += " Hotel/Logging expenses,";
-}
-if($("#mealsExpenses").is(':checked')){
-  underTravelAllowance  += " Meals expenses,";
-}
-if($("#Incidental").is(':checked')){
-  underTravelAllowance  += " Incidental,";
-}
-underTravelAllowance = underTravelAllowance.slice(0, -1);
-
-
-
-   $('#addTravelDiv:last-child').after('<div id = "addTravelDiv" style = "display:none;border-style:solid; padding:30px; margin-bottom:10px;">' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-    '<label class= "mylabel" for="name">Country:</label>' +
-    country + '<input type = "hidden" name = "travel_country[]" value = "' + country + '" />' +
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-      '<label class= "mylabel"for="name">Date from:</label>' +
-      datefrom + '<input type = "hidden" name = "travel_datefrom[]" value = "' + datefrom + '" />' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-      '<label class= "mylabel" for="password">Date to:</label>' +
-      dateto + '<input type = "hidden" name = "travel_dateto[]" value = "' + dateto + '" />' +
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-      '<label class= "mylabel" for="password">Purpose:</label>' +
-      purpose + '<input type = "hidden" name = "travel_purpose[]" value = "' + purpose + '" />' +
-    '</div>' + 
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-      '<label class = "mylabel" for="password">Benefits:</label>' +
-      benefits + '<input type = "hidden" name = "travel_benefits[]" value = "' + benefits + '" />' +
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">'+
-        '<label class= "mylabel" for="password">If group/delegation, please list their names:</label>' +
-        groupDelegation + '<input type = "hidden" name = "travel_groupdelegation[]" value = "' + groupDelegation + '" />' +
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-        '<label class= "mylabel">Nature of travel requested:</label>' +
-        natureOfTravelRequested + '<input type = "hidden" name = "travel_natureoftravelrequested[]" value = "' + natureOfTravelRequested + '" />' +
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-        '<label class= "mylabel">Travel type:</label>' +
-       travelType + '<input type = "hidden" name = "travel_traveltype[]" value = "' + travelType + '" />' +
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-        '<label class= "mylabel">Entitlement requested</label>' +
-        entitlementsRequested + '<input type = "hidden" name = "travel_entitlmentsrequested[]" value = "' + entitlementsRequested + '" />' +
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-       '<label class= "mylabel">Under travel allowance (if selected)</label>' +
-       underTravelAllowance + '<input type = "hidden" name = "travel_undertravelallowance[]" value = "' + underTravelAllowance + '" />' +
+  var underTravelAllowance = "";
+  if($("#hotelLoggingExpenses").is(':checked')){
+    underTravelAllowance  += " Hotel/Logging expenses,";
+  }
+  if($("#mealsExpenses").is(':checked')){
+    underTravelAllowance  += " Meals expenses,";
+  }
+  if($("#Incidental").is(':checked')){
+    underTravelAllowance  += " Incidental,";
+  }
+  underTravelAllowance = underTravelAllowance.slice(0, -1);
+  var index = randomString(12);
+     $('#addTravelDiv:last-child').after('<div id = "addTravelDiv" style = "display:none;border-style:solid; padding:30px; margin-bottom:10px;">' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+      '<label class= "mylabel" for="name">Country:</label>' +
+      country + '<input type = "hidden" name = "travel_flight['+ index +'][country]" value = "' + country + '" />' +
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+        '<label class= "mylabel"for="name">Date from:</label>' +
+        datefrom + '<input type = "hidden" name = "travel_flight['+ index +'][datefrom]" value = "' + datefrom + '" />' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+        '<label class= "mylabel" for="password">Date to:</label>' +
+        dateto + '<input type = "hidden" name = "travel_flight['+ index +'][dateto]" value = "' + dateto + '" />' +
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+        '<label class= "mylabel" for="password">Purpose:</label>' +
+        purpose + '<input type = "hidden" name = "travel_flight['+ index +'][purpose]" value = "' + purpose + '" />' +
+      '</div>' + 
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+        '<label class = "mylabel" for="password">Benefits:</label>' +
+        benefits + '<input type = "hidden" name = "travel_flight['+ index +'][benefits]" value = "' + benefits + '" />' +
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">'+
+          '<label class= "mylabel" for="password">If group/delegation, please list their names:</label>' +
+          groupDelegation + '<input type = "hidden" name = "travel_flight['+ index +'][groupdelegation]" value = "' + groupDelegation + '" />' +
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+          '<label class= "mylabel">Nature of travel requested:</label>' +
+          natureOfTravelRequested + '<input type = "hidden" name = "travel_flight['+ index +'][natureoftravelrequested]" value = "' + natureOfTravelRequested + '" />' +
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+          '<label class= "mylabel">Travel type:</label>' +
+         travelType + '<input type = "hidden" name = "travel_flight['+ index +'][traveltype]" value = "' + travelType + '" />' +
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+          '<label class= "mylabel">Entitlement requested</label>' +
+          entitlementsRequested + '<input type = "hidden" name = "travel_flight['+ index +'][entitlementsrequested]" value = "' + entitlementsRequested + '" />' +
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+         '<label class= "mylabel">Under travel allowance (if selected)</label>' +
+         underTravelAllowance + '<input type = "hidden" name = "travel_flight['+ index +'][undertravelallowance]" value = "' + underTravelAllowance + '" />' +
+      
+      '</div>' +
+      '<div class="form-group pure-u-1 pure-u-md-1-3">' +
+         '<button type = "button" class = "remove">Remove</button>' +
+      '</div>' +
+    '</div>'
+        );
     
-    '</div>' +
-    '<div class="form-group pure-u-1 pure-u-md-1-3">' +
-       '<button type = "button" class = "remove">Remove</button>' +
-    '</div>' +
-  '</div>'
-      );
-  
-$('#addTravelDiv:last-child').show('slow');
+  $('#addTravelDiv:last-child').show('slow');
 
- //clear data inputs
+   //clear data inputs
 
-clear_form_elements("aform");
+  clear_form_elements("aform");
 
 });
 function clear_form_elements(class_name) {
@@ -118,17 +143,17 @@ function clear_form_elements(class_name) {
     }
   });
 }
+$("#outputUnderTravelAllowance").hide();
 function displayUnderTravelAllowance(){
   var output = "";
-  var ischecked= $("#entitlementrequestedTravelAllowance").is(':checked');
-  if(ischecked){
-    output = "<label>Under travel allowance:&nbsp&nbsp</label><input type = 'checkbox' name = 'hotelLoggingExpenses' id = 'hotelLoggingExpenses'>Hotel/Logging expenses</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'mealsExpenses' id = 'mealsExpenses'>Meals expenses</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'Incidental' id = 'Incidental'>Incidental</input>&nbsp&nbsp&nbsp";
-    
-  } else{
+    var ischecked= $("#entitlementrequestedTravelAllowance").is(':checked');
+    if(ischecked){
+       $("#outputUnderTravelAllowance").show();   
+    } else{
+        $("#outputUnderTravelAllowance").hide();
 
-    output = "";
-  }
-   $("#outputUnderTravelAllowance").html(output);
+    }
+  
 }
 function populateTravelType(){
   var output = "";

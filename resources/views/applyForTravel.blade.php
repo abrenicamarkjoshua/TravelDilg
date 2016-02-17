@@ -140,7 +140,7 @@
                                         <input id = 'uploadpicture' required name = "picture" type="file" accept="image/gif, image/jpeg, image/png"></input>
                                       
                                   </div>
-                                  <button type="button" class="btn btn-next" id = "btnStep1Next">Next</button>
+                                  <button type="button" class="btn btn-next">Next</button>
                                 </div>
                           </fieldset>
                           
@@ -160,7 +160,7 @@
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="name">Country:</label>
                                     
-                                      <select class = "pure-u-11-24" required name="country" id = "country">
+                                      <select class = "pure-u-11-24"  name="country" id = "country">
                                         <option value = "">Please select country</option>                      
                                         <?php
                                           foreach($countries as $country){
@@ -177,16 +177,16 @@
 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel"for="name">Date from:</label>
-                                    <input class = "pure-u-11-24" required id="datefrom" name = "datefrom" type="date">
+                                    <input class = "pure-u-11-24"  id="datefrom" name = "datefrom" type="date">
                                 </div>
 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="password">Date to:</label>
-                                    <input class = "pure-u-11-24" required id="dateto" name = "dateto" type="date">
+                                    <input class = "pure-u-11-24"  id="dateto" name = "dateto" type="date">
                                 </div>
                                  <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="password">Purpose:</label>
-                                     <textarea autocomplete="off" required data-field="x_group_name" name="purpose" id="purpose" cols="40" rows="4"></textarea>
+                                     <textarea autocomplete="off"  data-field="x_group_name" name="purpose" id="purpose" cols="40" rows="4"></textarea>
                                 
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
@@ -202,7 +202,7 @@
                                 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Nature of travel requested:</label>
-                                    <select required name = "natureOfTravelRequested" id = "natureOfTravelRequested" onchange = "populateTravelType()">
+                                    <select  name = "natureOfTravelRequested" id = "natureOfTravelRequested" onchange = "populateTravelType()">
                                       <option value = "">Please select</option>
                                       <option value = "Study(Scholarship Grants)">Study(Scholarship Grants)</option>
                                       <option value = "Non study">Non study</option>
@@ -211,7 +211,7 @@
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Travel type:</label>
-                                    <select name = "travelType" required id = "travelType" onchange = "populateEntitlementsRequested()">
+                                    <select name = "travelType"  id = "travelType" onchange = "populateEntitlementsRequested()">
                                      
                                     </select>
                                 </div>
@@ -222,7 +222,7 @@
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                    <div id = "outputUnderTravelAllowance">
-
+                                      <label>Under travel allowance:&nbsp&nbsp</label><input type = 'checkbox' name = 'hotelLoggingExpenses' id = 'hotelLoggingExpenses'>Hotel/Logging expenses</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'mealsExpenses' id = 'mealsExpenses'>Meals expenses</input>&nbsp&nbsp&nbsp<input type = 'checkbox' name = 'Incidental' id = 'Incidental'>Incidental</input>&nbsp&nbsp&nbsp
                                    </div>
                                 </div>
  
@@ -232,7 +232,7 @@
                                 
                               </div><!--End optionBox -->
                               <button type="button" class="btn btn-previous">Previous</button>
-                              <button type="button" class="btn btn-next">Next</button>
+                              <button type="button" class="btn btn-next" id = "">Next</button>
                             </div><!-- End applicationform-->
                             </div>
                           </fieldset>
