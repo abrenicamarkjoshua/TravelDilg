@@ -31,16 +31,17 @@
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label for="region" class= "mylabel">Region:</label>
                                         <?php echo $region;?>
+                                        <input type = 'hidden' id = 'region' value = '{{$region}}'/>
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
                                       <label for="province" class= "mylabel">{{($region == "NATIONAL CAPITAL REGION (NCR)") ? "City" : "Province"}}:</label>
                                       <?php
                                        if(Auth::user()->province){
                                          
-                                          echo "<input name = 'selectprovince' value = '".Auth::user()->province."'' type = 'hidden' />";
+                                          echo "<input name = 'selectprovince' class = 'province' value = '".Auth::user()->province."'' type = 'hidden' />";
                                         echo Auth::user()->province;
                                         } else{
-                                          echo "<select required name = 'selectprovince' id = 'applySelectProvince'>";
+                                          echo "<select class = 'province' required name = 'selectprovince' id = 'applySelectProvince'>";
                                         echo App\viewStrategy::getProvincesOptions(Auth::user()->region);
                                         echo "</select>";
 
@@ -52,13 +53,13 @@
                                       <?php
                                       if(Auth::user()->municipality){
                                         ?>
-                                        <input type = 'hidden' name = 'municipality' value = '<?php echo Auth::user()->municipality;?>'/>
+                                        <input id = 'municipality' type = 'hidden' name = 'municipality' value = '<?php echo Auth::user()->municipality;?>'/>
 
                                         <?php
                                         echo Auth::user()->municipality;
                                       }else{
                                       ?>
-                                      <select  class = "pure-u-11-24" required name = 'municipality' id = 'selectMunicipality'>
+                                      <select id = 'municipality' class = "pure-u-11-24" required name = 'municipality' id = 'selectMunicipality'>
 
                                         <?php 
                                         //if lgu
@@ -77,7 +78,7 @@
                                   </div>
                                   <div class="form-group  pure-u-1 pure-u-md-1-3">
                                       <label for="lastname" class= "mylabel">Last name:</label>
-                                      <input   onkeypress = "return validate(event)" id = "applyLastname" class = "pure-u-11-24" autocomplete="off" required id="lastname" name = "lastname" type="text" >
+                                      <input onkeypress = "return validate(event)" class = "pure-u-11-24" autocomplete="off" required id="lastname" name = "lastname" type="text" >
                                   </div>
                                   <div class="form-group  pure-u-1 pure-u-md-1-3">
                                       <label for="firstname" class= "mylabel">First name:</label>
@@ -91,7 +92,7 @@
 
                                   <div class="form-group  pure-u-1 pure-u-md-1-3">
                                       <label for="password" class= "mylabel">Suffix:</label>
-                                      <input onkeypress = "return validate(event)"  class = "pure-u-11-24"  autocomplete="off" id="firstname" name = "suffix" type="text" >
+                                      <input onkeypress = "return validate(event)"  class = "pure-u-11-24"  autocomplete="off" id="suffix" name = "suffix" type="text" >
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
                                       <label class= "mylabel">Birthdate:</label>
@@ -120,7 +121,7 @@
                                   </div>
                                   <div class="form-group pure-u-1 pure-u-md-1-3">
                                       <label  class= "mylabel" for="sex">Sex:</label>
-                                      <SELECT  class = "pure-u-11-24" required name = 'sex'>
+                                      <SELECT id = 'sex' class = "pure-u-11-24" required name = 'sex'>
                                         <option value = "">SELECT SEX</option>
                                         <option value = "male">MALE</option>
                                         <option value = "female">FEMALE</option>
@@ -139,7 +140,7 @@
                                         <input id = 'uploadpicture' required name = "picture" type="file" accept="image/gif, image/jpeg, image/png"></input>
                                       
                                   </div>
-                                  <button type="button" class="btn btn-next">Next</button>
+                                  <button type="button" class="btn btn-next" id = "btnStep1Next">Next</button>
                                 </div>
                           </fieldset>
                           
@@ -154,11 +155,12 @@
                                 </div>
                                 </div>
                                 <div class="form-bottom">
-                                
+                              <div class = "optionBox">
+                              <div class = "aform">
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="name">Country:</label>
                                     
-                                      <select class = "pure-u-11-24" required name="country[]">
+                                      <select class = "pure-u-11-24" required name="country" id = "country">
                                         <option value = "">Please select country</option>                      
                                         <?php
                                           foreach($countries as $country){
@@ -184,66 +186,54 @@
                                 </div>
                                  <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="password">Purpose:</label>
-                                     <textarea autocomplete="off" required data-field="x_group_name" name="purpose" id="x_group_name" cols="40" rows="4"></textarea>
+                                     <textarea autocomplete="off" required data-field="x_group_name" name="purpose" id="purpose" cols="40" rows="4"></textarea>
                                 
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class = "mylabel" for="password">Benefits:</label>
-                                    <textarea autocomplete="off" data-field="x_group_name" name="benefits" id="x_group_name" cols="40" rows="4" placeholder=""></textarea>
+                                    <textarea autocomplete="off" data-field="x_group_name" name="benefits" id="benefits" cols="40" rows="4" placeholder=""></textarea>
                                 
                                 </div>
-                                <div id = 'outputAddTravel'>
-                                 
-
-                                </div>
-                                <div class="form-group pure-u-1 pure-u-md-1-3">
-                                    <button type = 'button' id = 'btnAddTravel'>Add travel</button>
-                                </div>
-                                
-                                <!-- <div class="form-group pure-u-1 pure-u-md-1-3">
-                                    <label for="password">Travel type:</label>
-                                    <select required name = "travelType">
-                                      <option value = "">select travel type</option>
-                                      <option value = "Individual">Individual</option>
-                                      <option value = "groupDelegation">Group / Delegation</option>
-                                    </select>
-                                </div> -->
 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel" for="password">If group/delegation, please list their names:</label>
-                                    <textarea data-field="x_group_name" name="groupDelegation" id="x_group_name" cols="40" rows="4" placeholder="IF GROUP/DELEGATION PLS LIST THE NAMES"></textarea>
+                                    <textarea data-field="x_group_name" name="groupDelegation" id="groupDelegation" cols="40" rows="4" placeholder="IF GROUP/DELEGATION PLS LIST THE NAMES"></textarea>
                                 </div>
                                 
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Nature of travel requested:</label>
-                                    <select required name = 'natureOfTravelRequested' id = 'natureOfTravelRequested' onchange = "populateTravelType()">
-                                      <option value = ''>Please select</option>
-                                      <option value = 'Study(Scholarship Grants)'>Study(Scholarship Grants)</option>
-                                      <option value = 'Non study'>Non study</option>
-                                      <option value = 'Personal'>Personal</option>
+                                    <select required name = "natureOfTravelRequested" id = "natureOfTravelRequested" onchange = "populateTravelType()">
+                                      <option value = "">Please select</option>
+                                      <option value = "Study(Scholarship Grants)">Study(Scholarship Grants)</option>
+                                      <option value = "Non study">Non study</option>
+                                      <option value = "Personal">Personal</option>
                                     </select>
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Travel type:</label>
-                                    <select name = 'travelType' required id = 'travelType' onchange = 'populateEntitlementsRequested()'>
-                                      <!-- <option value = 'OTO'>OTO (Official time only)</option>
-                                      <option value = 'OB'>OB (Official Business)</option>
-                                      <option value = 'OLA'>OLA (Official leave of absence)</option> -->
+                                    <select name = "travelType" required id = "travelType" onchange = "populateEntitlementsRequested()">
+                                     
                                     </select>
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
                                     <label class= "mylabel">Entitlement requested</label>
-                                    <div id = 'outputEntitlementsRequested'>
-
+                                    <div id = "outputEntitlementsRequested">
                                     </div>
                                 </div>
                                 <div class="form-group pure-u-1 pure-u-md-1-3">
-                                   <div id = 'outputUnderTravelAllowance'>
+                                   <div id = "outputUnderTravelAllowance">
 
                                    </div>
                                 </div>
-                                <button type="button" class="btn btn-previous">Previous</button>
-                                <button type="button" class="btn btn-next">Next</button>
+ 
+                               <div class="form-group pure-u-1 pure-u-md-1-3"  id = "addTravelDiv">
+                                    <button type = 'button' id = 'btnAddTravel'>Add travel</button>
+                               </div>
+                                
+                              </div><!--End optionBox -->
+                              <button type="button" class="btn btn-previous">Previous</button>
+                              <button type="button" class="btn btn-next">Next</button>
+                            </div><!-- End applicationform-->
                             </div>
                           </fieldset>
                           
